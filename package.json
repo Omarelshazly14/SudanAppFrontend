@@ -23,6 +23,7 @@
     "@handsontable/angular": "^9.0.2",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "angular-datatables": "^12.0.0",
+    "angularx-qrcode": "^12.0.3",
     "bootstrap": "^4.5.0",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",

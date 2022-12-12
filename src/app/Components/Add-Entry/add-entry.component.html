@@ -104,6 +104,18 @@
             <button (click)="submitCar()" class="btn btn-primary btn-block">Submit Entry</button>
         </div>
     </form>
+    <div *ngIf="showQRCode">
+        <div class="qrcodeImage">
+            <qrcode #parent [elementType]="'img'" [errorCorrectionLevel]="'M'" [qrdata]="qrText" [scale]="1"
+                [width]="400" [allowEmptyString]="true" [colorDark]="'#000000ff'" [colorLight]="'#ffffffff'"
+                [margin]="4" (qrCodeURL)="onChangeURL($event)"></qrcode>
+        </div>
+        <div class="downloadButton">
+            <button class="btn btn-primary" (click)="saveAsImage(parent)">
+                Download QR Code Image
+            </button>
+        </div>
+    </div>
     <!-- <form [formGroup]="addEntry" *ngIf="showAddEntry">
         <div class="mb-3">
             <label for="driverId" class="form-label">Driver ID</label>

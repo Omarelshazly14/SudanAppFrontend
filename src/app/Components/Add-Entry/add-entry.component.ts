@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Car } from "src/app/Data/Car";
 import { Driver } from "src/app/Data/Driver";
@@ -10,7 +10,9 @@ import { MngDataService } from "src/app/Services/mng-data.service";
 
 @Component({
     selector: 'add-entry',
-    templateUrl: 'add-entry.component.html'
+    templateUrl: 'add-entry.component.html',
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['add-entry.component.scss']
 })
 export class AddEntryComponent implements OnInit {
     addDriver: FormGroup;
@@ -20,7 +22,9 @@ export class AddEntryComponent implements OnInit {
     showCarDetails: boolean = false;
     carId: number;
     addEntry: FormGroup;
-    showAddEntry: boolean = false;
+    showQRCode: boolean = false;
+    qrCodeSrc: any;
+    qrText: string = 'test'
     title: string = "إضافة رحلة جديدة"
     constructor(private fb: FormBuilder, private _entryService: EntryService, private data: MngDataService, private _driverService: DriverService, private _carService: CarService) {
         this.addDriver = this.fb.group({
@@ -48,6 +52,45 @@ export class AddEntryComponent implements OnInit {
     ngOnInit(): void {
         this.data.setTitle(`${this.title}`);
     }
+    onChangeURL(url) {
+        this.qrCodeSrc = url;
+    }
+    saveAsImage(parent: any) {
+        let parentElement = null
+        // fetches base 64 data from image
+        // parentElement contains the base64 encoded image src
+        // you might use to store somewhere
+        parentElement = parent.qrcElement.nativeElement.querySelector("img").src
+
+        if (parentElement) {
+            // converts base 64 encoded image to blobData
+            let blobData = this.convertBase64ToBlob(parentElement)
+            // saves as image
+            const blob = new Blob([blobData], { type: "image/png" })
+            const url = window.URL.createObjectURL(blob)
+            const link = document.createElement("a")
+            link.href = url
+            // name of the file
+            link.download = "Qrcode"
+            link.click()
+        }
+    }
+    private convertBase64ToBlob(Base64Image: string) {
+        // split into two parts
+        const parts = Base64Image.split(";base64,")
+        // hold the content type
+        const imageType = parts[0].split(":")[1]
+        // decode base64 string
+        const decodedData = window.atob(parts[1])
+        // create unit8array of size same as row data length
+        const uInt8Array = new Uint8Array(decodedData.length)
+        // insert all character code into uint8array
+        for (let i = 0; i < decodedData.length; ++i) {
+            uInt8Array[i] = decodedData.charCodeAt(i)
+        }
+        // return blob image after conversion
+        return new Blob([uInt8Array], { type: imageType })
+    }
     submitDriver() {
         const val = this.addDriver.value;
         console.log(this.addDriver)
@@ -72,7 +115,6 @@ export class AddEntryComponent implements OnInit {
                 if (res > 0) {
                     console.log("Car Added");
                     this.showCarDetails = false;
-                    this.showAddEntry = true;
                     this.carId = res;
                     this.submitEntry();
                 }
@@ -94,6 +136,8 @@ export class AddEntryComponent implements OnInit {
                     //     horizontalPosition: "center",
                     // });
                     console.log("added successfully");
+                    this.qrText = res.toString();
+                    this.showQRCode = true;
                 } else {
                     // this.snackBar.open("حدث خطأ، حاول مرة أخرى", "", {
                     //     duration: 2000,

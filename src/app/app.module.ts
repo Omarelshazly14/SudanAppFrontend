@@ -61,6 +61,7 @@ import { CancelComponent } from './components/Actions/cancel/cancel.component';
 import { MainComponent } from './components/KPI/main/main.component';
 import { ViewComponent } from './components/KPI/view/view.component';
 import { AddEntryComponent } from './Components/Add-Entry/add-entry.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 const appInitializerFn = (appConfig: AppConfigServiceService) => {
@@ -132,6 +133,7 @@ const appInitializerFn = (appConfig: AppConfigServiceService) => {
     DataTablesModule,
     HttpClientModule,
     NgbModule,
+    QRCodeModule
   ],
   providers: [
     //AuthService,

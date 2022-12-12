@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Car } from '../Data/Car';
 import { Constants } from '../Data/constants';
 import { MngDataService } from './mng-data.service';
-import { Car } from '../Data/Car';
 
 @Injectable({
     providedIn: 'root'
