@@ -1,0 +1,115 @@
+<div class="row">
+  <section class="col-lg-12 connectedSortable">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+        <div class="input-group col-md-4">
+          <select class="form-control custom-select" id="employeeId" name="employeeId" (change)="refreshBySelectChange()"
+                  [(ngModel)]="employeeId">
+            <option selected>All</option>
+            <option [ngValue]="data.EmpId">My</option>
+            <ng-container *ngIf="data.isUserOfficer">
+              <option *ngFor="let e of employees" [attr.disabled]="1!=1 ? '' : null" [ngValue]="e.id">
+                {{e.firstName + ' ' + e.secondName + ' ' + e.lastName}}
+              </option>
+            </ng-container>
+          </select>
+          <div class="input-group-prepend">
+            <span class="input-group-text">Errands</span>
+          </div>
+          <!--<h3 class=""> Errands</h3>-->
+        </div>
+        </div>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <!--<button type="button" class="btn btn-tool" data-card-widget="remove">
+      <i class="fas fa-times"></i>
+    </button>-->
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table id="tblItems" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+               class="table table-bordered table-hover table-valign-middle">
+          <thead>
+            <tr>
+              <!--01--><th style="display:none">Id</th>
+              <!--02--><th>Requested At</th>
+              <!--03--><th>Start</th>
+              <!--04--><th>End</th>
+              <!--05--><th># of days</th>
+              <!--06--><th>Type</th>
+              <!--07--><th>Actual Start</th>
+              <!--08--><th>Actual End</th>
+              <!--09--><th>Review</th>
+              <!--00--><!--<th *ngif="1!=1">Reject Review Reason</th>-->
+              <!--10--><th>Approve</th>
+              <!--00--><!--<th *ngif="1!=1">Reject Approval Reason</th>-->
+              <!--11--><th>Notes</th>
+              <!--12--><th><a href="javascript:void(0)">...</a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let errand of errands">
+              <!--01--><td style="display:none"><span class="{{errand.id}}">{{ errand.id }}</span></td>
+              <!--02--><td>{{ errand.createdDate | date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+              <!--03--><td>
+                <span class="view {{errand.id}}">{{ errand.startDate | date:'dd/MM/yyyy'}}</span>
+                <input id="{{'im_'+errand.id}}" [(ngModel)]="errand.startDate" class="form-control edit {{errand.id}}" type="text" style="display: none;" />
+              </td>
+              <!--04--><td>
+                <span class="view {{errand.id}}">{{ errand.endDate | date:'dd/MM/yyyy'}}</span>
+                <input id="{{'im_'+errand.id}}" [(ngModel)]="errand.endDate" class="form-control edit {{errand.id}}" type="text" style="display: none;" />
+              </td>
+              <!--05--><td>
+                <span class="view {{errand.id}}">{{ errand.numberOfDays }}</span>
+                <input id="{{'im_'+errand.id}}" [(ngModel)]="errand.numberOfDays" class="form-control edit {{errand.id}}" type="text" style="display: none;" />
+              </td>
+              <!--06--><td>
+                <span class="view {{errand.id}}">{{ lookupSrv.getEntityVal(errand.errandTypeId,errandsTypes) }}</span>
+                <select id="{{'im_'+errand.id}}" [(ngModel)]="errand.errandTypeId" class="form-control custom-select edit {{errand.id}}" style="display: none;">
+                  <option *ngFor="let e of errandsTypes" value="{{e.id}}">
+                    {{e.name}}
+                  </option>
+                </select>
+              </td>
+              <!--07--><td>
+                <span class="view {{errand.id}}">{{ errand.actualStartDate }}</span>
+                <input id="{{'im_'+errand.id}}" [(ngModel)]="errand.actualStartDate" class="form-control edit {{errand.id}}" type="text" style="display: none;" />
+              </td>
+              <!--08--><td>
+                <span class="view {{errand.id}}">{{ errand.actualEndDate }}</span>
+                <input id="{{'im_'+errand.id}}" [(ngModel)]="errand.actualEndDate" class="form-control edit {{errand.id}}" type="text" style="display: none;" />
+              </td>
+              <!--09--><td>{{errand.reviewDecision|decision}}</td>
+              <!--<td *ngif="1==1">{{errand.reviewRejectReason}}</td>-->
+              <!--10--><td>{{errand.approvalDecision|decision}}</td>
+              <!--<td *ngif="1==1">{{errand.approvalRejectReason}}</td>-->
+              <!--11--><td>{{errand.notes}}</td>
+              <!--12--><td>
+                <a href="javascript:void(0)" (click)="openEdit(errand.id)"
+                   class="btn btn-primary btn-sm view {{errand.id}}">
+                  <i class="fa fa-edit"></i>
+                  Edit
+                </a>
+                <a href="javascript:void(0)" (click)="updateErrand(errand)"
+                   class="btn btn-success btn-sm edit {{errand.id}}" style="display: none;">
+                  <i class="fa fa-save"></i>
+                  Save
+                </a>&nbsp;
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+
+      </div>
+      <!-- /.card-footer-->
+    </div>
+  </section>
+  <!-- /.col-md-6 -->
+</div>

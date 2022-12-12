@@ -1,0 +1,357 @@
+<div class="row">
+  <!-- Left col -->
+  <section class="col-lg-12 connectedSortable">
+    <!-- Custom tabs (Charts with tabs)-->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fas fa-address-card mr-1"></i>
+          Edit Employee: {{emp.empCode}}
+        </h3>
+        <div class="card-tools">
+          <ul class="nav nav-pills ml-auto">
+            <li class="nav-item">
+              .
+            </li>
+            <li class="nav-item">
+              .
+            </li>
+            <li class="nav-item">
+              .
+            </li>
+          </ul>
+        </div>
+      </div><!-- /.card-header -->
+      <div class="card-body">
+        <div class="tab-content p-0">
+          <div style="position: relative">
+            <div>
+              <form #employeeForm="ngForm" (ngSubmit)="saveEmployee(emp)" ngNativeValidate>
+                <!---->
+                <input type="hidden" id="id" name="id" [(ngModel)]="emp.id" #Id="ngModel" />
+                <div class="row">
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="empCode">Emp Code<span class="text-danger">*</span></label>
+                      <input [ngClass]="{'form-control':true, 'is-invalid':empCode.errors && (empCode.dirty || empCode.touched || employeeForm.submitted)}" id="empCode" name="empCode" [(ngModel)]="emp.empCode" #empCode="ngModel" required />
+                      <small *ngIf="empCode.errors && (empCode.dirty || empCode.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="firstName">First Name<span class="text-danger">*</span></label>
+                      <input [ngClass]="{'form-control':true, 'is-invalid':firstName.errors && (firstName.dirty || firstName.touched || employeeForm.submitted)}" id="firstName" name="firstName" [(ngModel)]="emp.firstName" #firstName="ngModel" required />
+                      <small *ngIf="firstName.errors && (firstName.dirty || firstName.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="secondName">Second Name</label>
+                      <input [ngClass]="{'form-control':true}" id="secondName" name="secondName" [(ngModel)]="emp.secondName" #secondName="ngModel" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="lastName">Last Name<span class="text-danger">*</span></label>
+                      <input [ngClass]="{'form-control':true, 'is-invalid':lastName.errors && (lastName.dirty || lastName.touched || employeeForm.submitted)}" id="lastName" name="lastName" [(ngModel)]="emp.lastName" #lastName="ngModel" required />
+                      <small *ngIf="lastName.errors && (lastName.dirty || lastName.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="genderId">Gender<span class="text-danger">*</span></label>
+                      <select [ngClass]="{'form-control':true, 'custom-select':true, 'is-invalid':genderId.errors && (genderId.dirty || genderId.touched || employeeForm.submitted)}" id="genderId" name="genderId" [(ngModel)]="emp.genderId" #genderId="ngModel" required>
+                        <option selected disabled value="" i18n>--Select--</option>
+                        <option *ngFor="let e of genders" value="{{e.id}}">
+                          {{e.name}}
+                        </option>
+                      </select>
+                      <small *ngIf="genderId.errors && (genderId.dirty || genderId.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="mobile1">Mobile 1<span class="text-danger">*</span></label>
+                      <input [ngClass]="{'form-control':true, 'is-invalid':mobile1.errors && (mobile1.dirty || mobile1.touched || employeeForm.submitted)}" id="mobile1" name="mobile1" [(ngModel)]="emp.mobile1" #mobile1="ngModel" required />
+                      <small *ngIf="mobile1.errors && (mobile1.dirty || mobile1.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="mobile2">Mobile 2</label>
+                      <input [ngClass]="{'form-control':true}" id="mobile2" name="mobile2" [(ngModel)]="emp.mobile2" #mobile2="ngModel" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="email">Email<span class="text-danger">*</span></label>
+                      <input [ngClass]="{'form-control':true, 'is-invalid':email.errors && (email.dirty || email.touched || employeeForm.submitted)}" id="email" name="email" [(ngModel)]="emp.email" #email="ngModel" required />
+                      <small *ngIf="email.errors && (email.dirty || email.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="birthDate">Birth Date</label>
+                      <input type="date" [ngClass]="{'form-control':true}" id="birthDate" name="birthDate" #birthDate="ngModel" [ngModel]="emp.birthDate | date:'yyyy-MM-dd'" (ngModelChange)="emp.birthDate = $event" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="maritalStatusId">Marital Status</label>
+                      <select class="form-control custom-select" id="maritalStatusId" name="maritalStatusId" [(ngModel)]="emp.maritalStatusId" #maritalStatusId="ngModel">
+                        <option selected disabled value="" i18n>--Select--</option>
+                        <option *ngFor="let e of maritalStatuses " value="{{e.id}}">
+                          {{e.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="militaryStatusId">Military Status</label>
+                      <select class="form-control custom-select" id="militaryStatusId" name="militaryStatusId" [(ngModel)]="emp.militaryStatusId" #militaryStatusId="ngModel">
+                        <option selected disabled value="" i18n>--Select--</option>
+                        <option *ngFor="let e of militaryStatuses " value="{{e.id}}">
+                          {{e.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="nationalID">National ID</label>
+                      <input (keypress)="allowNumbersOnly($event)" [minlength]="14" [maxlength]="14" [ngClass]="{'form-control':true, 'is-invalid':nationalID.errors && (nationalID.dirty || nationalID.touched || employeeForm.submitted)}" id="nationalID" name="nationalID" [(ngModel)]="emp.nationalID" #nationalID="ngModel" />
+                      <small *ngIf="(nationalID.errors && (nationalID.errors.minlength || nationalID.errors.maxlength)) && (nationalID.dirty || nationalID.touched || employeeForm.submitted)" class="text-danger">National ID must be 14 digits!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="region">Address/Region</label>
+                      <input [ngClass]="{'form-control':true}" id="region" name="region" [(ngModel)]="emp.region" #region="ngModel" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="graduationId">Graduation<span class="text-danger">*</span></label>
+                      <select [ngClass]="{'form-control':true, 'custom-select':true, 'is-invalid':graduationId.errors && (graduationId.dirty || graduationId.touched || employeeForm.submitted)}" id="graduationId" name="graduationId" [(ngModel)]="emp.graduationId" #graduationId="ngModel" required>
+                        <option selected disabled value="" i18n>--Select--</option>
+                        <option *ngFor="let e of graduations" value="{{e.id}}">
+                          {{e.name}}
+                        </option>
+                      </select>
+                      <small *ngIf="graduationId.errors && (graduationId.dirty || graduationId.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="qualification">Qualification</label>
+                      <input [ngClass]="{'form-control':true}" id="qualification" name="qualification" [(ngModel)]="emp.qualification" #qualification="ngModel" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="hiringSource">Hiring Source</label>
+                      <input [ngClass]="{'form-control':true}" id="hiringSource" name="hiringSource" [(ngModel)]="emp.hiringSource" hiringSource="ngModel" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="hiringDate">Hiring Date</label>
+                      <input type="date" [ngClass]="{'form-control':true}" id="hiringDate" name="hiringDate" #hiringDate="ngModel" [ngModel]="emp.hiringDate | date:'yyyy-MM-dd'" (ngModelChange)="emp.hiringDate = $event" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="hiringStatusId">Hiring Status<span class="text-danger">*</span></label>
+                      <select [ngClass]="{'form-control':true, 'custom-select':true, 'is-invalid':hiringStatusId.errors && (hiringStatusId.dirty || hiringStatusId.touched || employeeForm.submitted)}" id="hiringStatusId" name="hiringStatusId" [(ngModel)]="emp.hiringStatusId" #hiringStatusId="ngModel" required>
+                        <option selected disabled value="" i18n>--Select--</option>
+                        <option *ngFor="let e of hiringStatuses" value="{{e.id}}">
+                          {{e.name}}
+                        </option>
+                      </select>
+                      <small *ngIf="hiringStatusId.errors && (hiringStatusId.dirty || hiringStatusId.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="jobId">Job<span class="text-danger">*</span></label>
+                      <select [ngClass]="{'form-control':true, 'custom-select':true, 'is-invalid':jobId.errors && (jobId.dirty || jobId.touched || employeeForm.submitted)}" id="jobId" name="jobId" [(ngModel)]="emp.jobId" #jobId="ngModel" required>
+                        <option selected disabled value="" i18n>--Select--</option>
+                        <option *ngFor="let e of jobs" value="{{e.id}}">
+                          {{e.name}}
+                        </option>
+                      </select>
+                      <small *ngIf="jobId.errors && (jobId.dirty || jobId.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="titleId">Title<span class="text-danger">*</span></label>
+                      <select [ngClass]="{'form-control':true, 'custom-select':true, 'is-invalid':titleId.errors && (titleId.dirty || titleId.touched || employeeForm.submitted)}" id="titleId" name="titleId" [(ngModel)]="emp.titleId" #titleId="ngModel" required>
+                        <option selected disabled value="" i18n>--Select--</option>
+                        <option *ngFor="let e of titles" value="{{e.id}}">
+                          {{e.name}}
+                        </option>
+                      </select>
+                      <small *ngIf="titleId.errors && (titleId.dirty || titleId.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="departmentId">Department<span class="text-danger">*</span></label>
+                      <select [ngClass]="{'form-control':true, 'custom-select':true, 'is-invalid':departmentId.errors && (departmentId.dirty || departmentId.touched || employeeForm.submitted)}" id="departmentId" name="departmentId" [(ngModel)]="emp.departmentId" #departmentId="ngModel" required>
+                        <option selected disabled value="" i18n>--Select--</option>
+                        <option *ngFor="let e of departments" value="{{e.id}}">
+                          {{e.name}}
+                        </option>
+                      </select>
+                      <small *ngIf="departmentId.errors && (departmentId.dirty || departmentId.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="employmentTypeId">Employee Type</label>
+                      <select class="form-control custom-select" id="employmentTypeId" name="employmentTypeId" [(ngModel)]="emp.employmentTypeId" #employmentTypeId="ngModel">
+                        <option selected disabled value="" i18n>--Select--</option>
+                        <option *ngFor="let e of employmentTypes" value="{{e.id}}">
+                          {{e.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="vendorId">Vendors</label>
+                      <select class="form-control custom-select" id="vendorId" name="vendorId" [(ngModel)]="emp.vendorId" #vendorId="ngModel">
+                        <option selected disabled value="" i18n>--Select--</option>
+                        <option *ngFor="let e of vendors" value="{{e.id}}">
+                          {{e.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="batch">Batch<span class="text-danger">*</span></label>
+                      <input type="number" [ngClass]="{'form-control':true, 'is-invalid':batch.errors && (batch.dirty || batch.touched || employeeForm.submitted)}" id="batch" name="batch" [(ngModel)]="emp.batch" #batch="ngModel" required />
+                      <small *ngIf="batch.errors && (batch.dirty || batch.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="serviceDays">Service days<span class="text-danger">*</span></label>
+                      <input type="number" [ngClass]="{'form-control':true, 'is-invalid':serviceDays.errors && (serviceDays.dirty || serviceDays.touched || employeeForm.submitted)}" id="serviceDays" name="serviceDays" [(ngModel)]="emp.serviceDays" #serviceDays="ngModel" required />
+                      <small *ngIf="serviceDays.errors && (serviceDays.dirty || serviceDays.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="annualLeavesBalance">Annual Leaves Balance<span class="text-danger">*</span></label>
+                      <input type="number" [ngClass]="{'form-control':true, 'is-invalid':annualLeavesBalance.errors && (annualLeavesBalance.dirty || annualLeavesBalance.touched || employeeForm.submitted)}" id="annualLeavesBalance" name="annualLeavesBalance" [(ngModel)]="emp.annualLeavesBalance" #annualLeavesBalance="ngModel" required />
+                      <small *ngIf="annualLeavesBalance.errors && (annualLeavesBalance.dirty || annualLeavesBalance.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="casualBalance">Casual Balance<span class="text-danger">*</span></label>
+                      <input type="number" [ngClass]="{'form-control':true, 'is-invalid':casualBalance.errors && (casualBalance.dirty || serviceDays.touched || employeeForm.submitted)}" id="casualBalance" name="casualBalance" [(ngModel)]="emp.casualBalance" #casualBalance="ngModel" required />
+                      <small *ngIf="casualBalance.errors && (casualBalance.dirty || casualBalance.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group">
+                      <label for="sickBalance">Sick Balance<span class="text-danger">*</span></label>
+                      <input type="number" [ngClass]="{'form-control':true, 'is-invalid':sickBalance.errors && (sickBalance.dirty || sickBalance.touched || employeeForm.submitted)}" id="sickBalance" name="sickBalance" [(ngModel)]="emp.sickBalance" #sickBalance="ngModel" required />
+                      <small *ngIf="sickBalance.errors && (sickBalance.dirty || sickBalance.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 pull-right">
+                    <input class="btn btn-primary float-right" type="submit" value="Save" style="cursor: pointer" />
+                    <span class="float-right text-white">..</span>
+                    <input class="btn btn-default float-right" type="button" (click)="employeeForm.resetForm();getEmployee(id)" value="Cancel" />
+                    <span class="float-right text-white">..</span>
+                    <input class="btn btn-default float-right" type="button" (click)="openAccessAccount(content)" value="Access account" />
+                  </div>
+                </div>
+              </form>
+
+
+            </div>
+
+            <!--<div class="row">
+              <div class="row">
+                <div class="col-12 pull-right">
+                  <input class="btn btn-primary float-right" type="button" (click)="saveEmployees()" value="Save" />
+                </div>
+              </div>
+            </div>-->
+          </div>
+
+          <!--<div class="chart tab-pane" id="addExcel" style="position: relative; height: 300px;">
+            <p>{{employeeForm.value|json}}</p>
+          </div>-->
+        </div>
+      </div><!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </section>
+  <!-- /.Left col -->
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <form #userForm="ngForm" (ngSubmit)="saveUser(user)" ngNativeValidate>
+        <div class="row">
+          <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="form-group">
+              <label for="userName">User Name<span class="text-danger">*</span></label>
+              <input [ngClass]="{'form-control':true, 'is-invalid':userName.errors && (userName.dirty || userName.touched || userForm.submitted)}" id="userName" name="userName" [(ngModel)]="user.userName" #userName="ngModel" required />
+              <small *ngIf="userName.errors && (userName.dirty || userName.touched || userForm.submitted)" class="text-danger">Required!</small>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="form-group">
+              <label for="password">Password<span class="text-danger">*</span></label>
+              <input type="password" [ngClass]="{'form-control':true, 'is-invalid':password.errors && (password.dirty || password.touched || userForm.submitted)}" id="password" name="password" [(ngModel)]="user.password" #password="ngModel" required />
+              <small *ngIf="password.errors && (password.dirty || password.touched || userForm.submitted)" class="text-danger">Required!</small>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password<span class="text-danger">*</span></label>
+              <input type="password" [ngClass]="{'form-control':true, 'is-invalid':confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched || confirmPassword.submitted)}" id="confirmPassword" name="confirmPassword" [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" required />
+              <small *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched || userForm.submitted)" class="text-danger">Required!</small>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="form-group">
+              <label for="roles">Roles<span class="text-danger">*</span></label>
+              <select multiple [ngClass]="{'form-control':true, 'custom-select':true, 'is-invalid':roles.errors && (roles.dirty || roles.touched || userForm.submitted)}" id="roles" name="roles" [(ngModel)]="user.roles" #roles="ngModel" required>
+                <option selected disabled value="" i18n>--Select--</option>
+                <option selected value="hr" i18n>HR</option>
+                <option value="hrAdmin" i18n>HR Admin</option>
+                <option value="Officer" i18n>Officer</option>
+                <option value="Agent" i18n>Agent</option>
+                <option value="TeamLeader" i18n>Team Leader</option>
+                <option value="Manager" i18n>Manager</option>
+                <option value="CEO" i18n>CEO</option>
+              </select>
+              <small *ngIf="genderId.errors && (genderId.dirty || genderId.touched || employeeForm.submitted)" class="text-danger">Required!</small>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

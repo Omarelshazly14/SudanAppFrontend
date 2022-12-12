@@ -1,0 +1,98 @@
+
+<div class="row">
+  <section class="col-lg-12 connectedSortable">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Request Errand</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <!--<button type="button" class="btn btn-tool" data-card-widget="remove">
+        <i class="fas fa-times"></i>
+      </button>-->
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <form #errandForm="ngForm" (ngSubmit)="saveErrand(errandForm)" ngNativeValidate>
+          <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <div class="form-group">
+                <label>For</label>
+                <select class="form-control custom-select" id="employeeId" name="employeeId"
+                        ngModel #employeeId="ngModel">
+                  <option selected value="{{data.EmpId}}">Me</option>
+                  <ng-container *ngIf="data.isUserOfficer">
+                    <option *ngFor="let e of employees" [attr.disabled]="1!=1 ? '' : null" value="{{e.id}}">
+                      {{e.firstName + ' ' + e.secondName + ' ' + e.lastName}}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <div class="form-group">
+                <label for="errandTypeId">Errand Type<span class="text-danger">*</span></label>
+                <select [ngClass]="{'form-control':true, 'custom-select':true, 'is-invalid':errandTypeId.errors
+                        && (errandTypeId.dirty || errandTypeId.touched || errandForm.submitted)}"
+                        id="errandTypeId" name="errandTypeId" ngModel
+                        #errandTypeId="ngModel" required>
+                  <option selected disabled value="" i18n>--Select--</option>
+                  <option *ngFor="let e of errandsTypes" value="{{e.id}}">
+                    {{e.name}}
+                  </option>
+                </select>
+                <small *ngIf="errandTypeId.errors && (errandTypeId.dirty || errandTypeId.touched || errandForm.submitted)"
+                       class="text-danger">Required!</small>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input (change)="calculateNumberOfDays(errandForm, numberOfDays)" type="date" [ngClass]="{'form-control':true, 'is-invalid':startDate.errors
+                       && (startDate.dirty || startDate.touched || errandForm.submitted)}"
+                       id="startDate" name="startDate" #startDate="ngModel"
+                       [ngModel]="errandForm.startDate | date:'yyyy-MM-dd'"
+                       (ngModelChange)="errandForm.startDate = $event" required />
+                <small *ngIf="startDate.errors && (startDate.dirty || startDate.touched || errandForm.submitted)"
+                       class="text-danger">Required!</small>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <div class="form-group">
+                <label for="endDate">End Date</label>
+                <input (change)="calculateNumberOfDays(errandForm, numberOfDays)" type="date" [ngClass]="{'form-control':true, 'is-invalid':endDate.errors
+                       && (endDate.dirty || endDate.touched || errandForm.submitted)}"
+                       id="endDate" name="endDate" #endDate="ngModel"
+                       [ngModel]="errandForm.endDate | date:'yyyy-MM-dd'"
+                       (ngModelChange)="errandForm.endDate = $event" required />
+                <small *ngIf="endDate.errors && (endDate.dirty || endDate.touched || errandForm.submitted)"
+                       class="text-danger">Required!</small>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <div class="form-group">
+                <label for="numberOfDays">Number Of Days<span class="text-danger">*</span></label>
+                <input type="number" [ngClass]="{'form-control':true, 'is-invalid':numberOfDays.errors && (numberOfDays.dirty || numberOfDays.touched || numberOfDays.submitted)}" id="numberOfDays" name="numberOfDays" ngModel #numberOfDays="ngModel" required />
+                <small *ngIf="numberOfDays.errors && (numberOfDays.dirty || numberOfDays.touched || errandForm.submitted)" class="text-danger">Required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <input type="submit" class="btn btn-primary" />
+            <!--<input type="button" value="openm" class="btn btn-primary" (click)="openM()" />-->
+          </div>
+        </form>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+
+      </div>
+      <!-- /.card-footer-->
+    </div>
+  </section>
+  <!-- /.col-md-6 -->
+</div>

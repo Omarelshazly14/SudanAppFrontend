@@ -1,0 +1,118 @@
+<div class="row">
+  <section class="col-lg-12 connectedSortable">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Review Leaves</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <!--<button type="button" class="btn btn-tool" data-card-widget="remove">
+        <i class="fas fa-times"></i>
+      </button>-->
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table id="tblItems" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+               class="table table-bordered table-hover table-valign-middle">
+          <thead>
+            <tr>
+              <th style="display:none">Id</th>
+              <th>Requested At</th>
+              <th>Emp Code</th>
+              <th>Name</th>
+              <th>Start</th>
+              <th>End</th>
+              <th># of days</th>
+              <th>Type</th>
+              <th>Notes</th>
+              <th><a href="javascript:void(0)">...</a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let leave of leaves">
+              <td style="display:none"><span class="{{leave.id}}">{{ leave.id }}</span></td>
+              <td>{{ leave.createdDate | date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+              <td>{{leave.employee.empCode}}</td>
+              <td>{{leave.employee.firstName + ' ' + leave.employee.secondName + ' ' + leave.employee.lastName}}</td>
+              <td>
+                <span class="view {{leave.id}}">{{ leave.startDate | date:'dd/MM/yyyy'}}</span>
+                <input id="{{'im_'+leave.id}}" [(ngModel)]="leave.startDate" class="form-control edit {{leave.id}}" type="text" style="display: none;" />
+              </td>
+              <td>
+                <span class="view {{leave.id}}">{{ leave.endDate | date:'dd/MM/yyyy'}}</span>
+                <input id="{{'im_'+leave.id}}" [(ngModel)]="leave.endDate" class="form-control edit {{leave.id}}" type="text" style="display: none;" />
+              </td>
+              <td>
+                <span class="view {{leave.id}}">{{ leave.numberOfDays }}</span>
+                <input id="{{'im_'+leave.id}}" [(ngModel)]="leave.numberOfDays" class="form-control edit {{leave.id}}" type="text" style="display: none;" />
+              </td>
+              <td>
+                <span class="view {{leave.id}}">{{ lookupSrv.getEntityVal(leave.leaveTypeId,leavesTypes) }}</span>
+                <select id="{{'im_'+leave.id}}" [(ngModel)]="leave.leaveTypeId" class="form-control custom-select edit {{leave.id}}" style="display: none;">
+                  <option *ngFor="let e of leavesTypes" value="{{e.id}}">
+                    {{e.name}}
+                  </option>
+                </select>
+              </td>
+              <td>{{leave.notes}}</td>
+              <td>
+                <a href="javascript:void(0)" (click)="openM(content,leave.id,leave.reviewDecision,leave.reviewRejectReason)"
+                   class="btn btn-primary btn-sm view {{leave.id}}">
+                  <i class="fa fa-edit"></i>
+                  Review
+                </a>
+                <a href="javascript:void(0)" (click)="updateLeave(leave)"
+                   class="btn btn-success btn-sm edit {{leave.id}}" style="display: none;">
+                  <i class="fa fa-save"></i>
+                  Save
+                </a>&nbsp;
+                <input class="custom-control-input" type="checkbox" name="my-checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+      </div>
+      <!-- /.card-footer-->
+    </div>
+  </section>
+  <!-- /.col-md-6 -->
+</div>
+<div style="display:none">
+  <div id="dvReview">
+    <label>{{leaveId}}</label>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reviewing leave</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+   
+    <form>
+    <input type="hidden" value="{{leaveId}}" />
+    <div class="form-group">
+      <label for="review">Accept/Reject</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="checkbox" checked name="decision" data-bootstrap-switch [(ngModel)]="decision" />
+          </div>
+        </div>
+        <input id="review" class="form-control" placeholder="Reason" name="reason" [(ngModel)]="reason">
+      </div>
+    </div>
+  </form>
+  </div>
+  <div class="modal-footer">
+    <!--modal.close('Save click')-->
+    <button type="button" class="btn btn-outline-dark" (click)="reviewLeave()">Save</button>
+  </div>
+</ng-template>

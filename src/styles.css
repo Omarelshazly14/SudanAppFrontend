@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'assets/plugins/fontawesome-free/css/all.min.css';
+@import 'assets/css/ionicons.min.css';
+@import 'assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css';
+@import 'assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css';
+@import 'assets/plugins/jqvmap/jqvmap.min.css';
+@import 'assets/plugins/chosen/chosen.min.css';
+@import '../node_modules/handsontable/dist/handsontable.full.min.css';
+@import 'assets/css/adminlte.min.css';
+@import 'assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css';
+@import 'assets/plugins/daterangepicker/daterangepicker.css';
+@import 'assets/plugins/summernote/summernote-bs4.css';
+@import 'assets/plugins/bootstrap-toggle/bootstrap-toggle.min.css';
+@import 'assets/plugins/pace-progress/themes/black/pace-theme-flat-top.css';
+@import '../node_modules/ngx-toastr/toastr.css';
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css';
+/*@import '../node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css';*/
+

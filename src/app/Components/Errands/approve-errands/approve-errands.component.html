@@ -1,0 +1,122 @@
+<div class="row">
+  <section class="col-lg-12 connectedSortable">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Approve Errands</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <!--<button type="button" class="btn btn-tool" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+          </button>-->
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table id="tblItems" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+               class="table table-bordered table-hover table-valign-middle">
+          <thead>
+            <tr>
+              <th style="display:none">Id</th>
+              <th>Requested At</th>
+              <th>Emp Code</th>
+              <th>Name</th>
+              <th>Start</th>
+              <th>End</th>
+              <th># of days</th>
+              <th>Type</th>
+              <th>Reviewed by</th>
+              <th>Reviewed at</th>
+              <th>Notes</th>
+              <th><a href="javascript:void(0)">...</a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let errand of errands">
+              <td style="display:none"><span class="{{errand.id}}">{{ errand.id }}</span></td>
+              <td>{{ errand.createdDate | date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+              <td>{{errand.employee.empCode}}</td>
+              <td>{{errand.employee.firstName + ' ' + errand.employee.secondName + ' ' + errand.employee.lastName}}</td>
+              <td>
+                <span class="view {{errand.id}}">{{ errand.startDate | date:'dd/MM/yyyy'}}</span>
+                <input id="{{'im_'+errand.id}}" [(ngModel)]="errand.startDate" class="form-control edit {{errand.id}}" type="text" style="display: none;" />
+              </td>
+              <td>
+                <span class="view {{errand.id}}">{{ errand.endDate | date:'dd/MM/yyyy'}}</span>
+                <input id="{{'im_'+errand.id}}" [(ngModel)]="errand.endDate" class="form-control edit {{errand.id}}" type="text" style="display: none;" />
+              </td>
+              <td>
+                <span class="view {{errand.id}}">{{ errand.numberOfDays }}</span>
+                <input id="{{'im_'+errand.id}}" [(ngModel)]="errand.numberOfDays" class="form-control edit {{errand.id}}" type="text" style="display: none;" />
+              </td>
+              <td>
+                <span class="view {{errand.id}}">{{ lookupSrv.getEntityVal(errand.errandTypeId,errandsTypes) }}</span>
+                <select id="{{'im_'+errand.id}}" [(ngModel)]="errand.errandTypeId" class="form-control custom-select edit {{errand.id}}" style="display: none;">
+                  <option *ngFor="let e of errandsTypes" value="{{e.id}}">
+                    {{e.name}}
+                  </option>
+                </select>
+              </td>
+              <td>{{errand.reviewer.firstName + ' ' + errand.reviewer.secondName + ' ' + errand.reviewer.lastName}}</td>
+              <td>{{errand.reviewDate | date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+              <td>{{errand.notes}}</td>
+              <td>
+                <a href="javascript:void(0)" (click)="openM(content,errand.id,errand.approvalDecision,errand.approvalRejectReason)"
+                   class="btn btn-primary btn-sm view {{errand.id}}">
+                  <i class="fa fa-edit"></i>
+                  Approve
+                </a>
+                <a href="javascript:void(0)" (click)="updateErrand(errand)"
+                   class="btn btn-success btn-sm edit {{errand.id}}" style="display: none;">
+                  <i class="fa fa-save"></i>
+                  Save
+                </a>&nbsp;
+                <input class="custom-control-input" type="checkbox" name="my-checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+      </div>
+      <!-- /.card-footer-->
+    </div>
+  </section>
+  <!-- /.col-md-6 -->
+</div>
+<div style="display:none">
+  <div id="dvReview">
+    <label>{{errandId}}</label>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Approve errand</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form>
+      <input type="hidden" value="{{errandId}}" />
+      <div class="form-group">
+        <label for="review">Accept/Reject</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" checked name="decision" data-bootstrap-switch [(ngModel)]="decision" />
+            </div>
+          </div>
+          <input id="review" class="form-control" placeholder="Reason" name="reason" [(ngModel)]="reason">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <!--modal.close('Save click')-->
+    <button type="button" class="btn btn-outline-dark" (click)="approveErrand()">Save</button>
+  </div>
+</ng-template>

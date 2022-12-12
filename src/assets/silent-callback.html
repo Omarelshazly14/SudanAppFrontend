@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1024, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Silent-Callback</title>
+  <script src="/assets/js/oidc-client.js"></script>
+</head>
+<body>
+  <script>
+    const idpSettings = {
+      authority: "https://localhost:44310",
+      clientId: "HR.web",
+      scope: "openid profile HRapi roles",
+      response_type: "code"
+    };
+    new Oidc.UserManager(idpSettings).signinSilentCallback()
+      .catch(error => {
+        console.log(error);
+      });
+  </script>
+</body>
+</html>

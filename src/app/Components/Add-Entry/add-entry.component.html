@@ -1,0 +1,31 @@
+<div class="container">
+    <form [formGroup]="form">
+        <div class="mb-3">
+            <label for="driverId" class="form-label">Driver ID</label>
+            <input type="number" name="driverId" formControlName="driverId" class="form-control" id="driverId"
+                placeholder="Enter Driver ID" min="0">
+            <div *ngIf="form.controls.driverId.errors?.['required']" class="text-red">
+                Driver ID is required.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="carId" class="form-label">Car ID</label>
+            <input type="number" name="carId" formControlName="carId" class="form-control" id="driverId"
+                placeholder="Enter Car ID" min="0">
+            <div *ngIf="form.controls.driverId.errors?.['required']" class="text-red">
+                Car ID is required.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="ownerCarId" class="form-label">Car Owner ID</label>
+            <input type="text" name="ownerCarId" formControlName="ownerCarId" class="form-control" id="ownerCarId"
+                placeholder="Enter Car Owner ID">
+            <div *ngIf="form.controls.driverId.errors?.['required']" class="text-red">
+                Car Owner ID is required.
+            </div>
+        </div>
+        <div class="col-3">
+            <button (click)="submitEntry()" class="btn btn-primary btn-block">Add Entry</button>
+        </div>
+    </form>
+</div>

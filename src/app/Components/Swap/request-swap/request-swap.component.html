@@ -1,0 +1,100 @@
+
+<div class="row">
+  <section class="col-lg-12 connectedSortable">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Request {{title}}</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <!--<button type="button" class="btn btn-tool" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+          </button>-->
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <form #elementForm="ngForm" (ngSubmit)="saveElement(elementForm)" ngNativeValidate>
+          <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <div class="form-group">
+                <label>For</label>
+                <select class="form-control custom-select" id="employeeId" name="employeeId"
+                        ngModel #employeeId="ngModel">
+                  <option selected value="{{data.EmpId}}">Me</option>
+                  <ng-container *ngIf="data.isUserOfficer">
+                    <option *ngFor="let e of employees" [attr.disabled]="1!=1 ? '' : null" value="{{e.id}}">
+                      {{e.firstName + ' ' + e.secondName + ' ' + e.lastName}}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <div class="form-group">
+                <label>With</label>
+                <select class="form-control custom-select" id="employeeSwappedId" name="employeeSwappedId"
+                        ngModel #employeeSwappedId="ngModel">
+                  <ng-container *ngIf="data.isUserOfficer">
+                    <option *ngFor="let e of employees" [attr.disabled]="1!=1 ? '' : null" value="{{e.id}}">
+                      {{e.firstName + ' ' + e.secondName + ' ' + e.lastName}}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <div class="form-group">
+                <label for="swapTypeId">{{title}} Type<span class="text-danger">*</span></label>
+                <select [ngClass]="{'form-control':true, 'custom-select':true, 'is-invalid':swapTypeId.errors
+                        && (swapTypeId.dirty || swapTypeId.touched || elementForm.submitted)}"
+                        id="swapTypeId" name="swapTypeId" ngModel
+                        #swapTypeId="ngModel" required>
+                  <option selected disabled value="" i18n>--Select--</option>
+                  <option *ngFor="let e of elementsTypes" value="{{e.id}}">
+                    {{e.name}}
+                  </option>
+                </select>
+                <small *ngIf="swapTypeId.errors && (swapTypeId.dirty || swapTypeId.touched || elementForm.submitted)"
+                       class="text-danger">Required!</small>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <div class="form-group">
+                <label for="scheduledTime">Scheduled Time<span class="text-danger">*</span></label>
+                <input type="number" [ngClass]="{'form-control':true, 'is-invalid':scheduledTime.errors && (scheduledTime.dirty || scheduledTime.touched || scheduledTime.submitted)}" id="scheduledTime" name="scheduledTime" ngModel #scheduledTime="ngModel" required />
+                <small *ngIf="scheduledTime.errors && (scheduledTime.dirty || scheduledTime.touched || elementForm.submitted)" class="text-danger">Required!</small>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <div class="form-group">
+                <label for="scheduledDay">Scheduled Day</label>
+                <input type="date" [ngClass]="{'form-control':true, 'is-invalid':scheduledDay.errors
+                       && (scheduledDay.dirty || scheduledDay.touched || elementForm.submitted)}"
+                       id="scheduledDay" name="scheduledDay" #scheduledDay="ngModel"
+                       [ngModel]="elementForm.scheduledDay | date:'yyyy-MM-dd'"
+                       (ngModelChange)="elementForm.scheduledDay = $event" required />
+                <small *ngIf="scheduledDay.errors && (scheduledDay.dirty || scheduledDay.touched || elementForm.submitted)"
+                       class="text-danger">Required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <input type="submit" class="btn btn-primary" />
+            <!--<input type="button" value="openm" class="btn btn-primary" (click)="openM()" />-->
+
+          </div>
+        </form>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+
+      </div>
+      <!-- /.card-footer-->
+    </div>
+  </section>
+  <!-- /.col-md-6 -->
+</div>

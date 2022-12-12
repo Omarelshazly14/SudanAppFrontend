@@ -1,0 +1,134 @@
+<div class="row">
+  <section class="col-lg-12 connectedSortable">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="input-group col-md-4">
+            <select class="form-control custom-select" id="employeeId" name="employeeId" (change)="refreshBySelectChange()"
+                    [(ngModel)]="employeeId">
+              <option selected>All</option>
+              <option [ngValue]="data.EmpId">My</option>
+              <ng-container *ngIf="data.isUserOfficer">
+                <option *ngFor="let e of employees" [attr.disabled]="1!=1 ? '' : null" [ngValue]="e.id">
+                  {{e.firstName + ' ' + e.secondName + ' ' + e.lastName}}
+                </option>
+              </ng-container>
+            </select>
+            <div class="input-group-prepend">
+              <span class="input-group-text">{{title}}s</span>
+            </div>
+            <!--<h3 class=""> Leaves</h3>-->
+          </div>
+        </div>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <!--<button type="button" class="btn btn-tool" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+          </button>-->
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table id="tblItems" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+               class="table table-bordered table-hover table-valign-middle">
+          <thead>
+            <tr>
+              <!--01-->
+              <th style="display:none">Id</th>
+              <!--02-->
+              <th>Requested At</th>
+              <!--03-->
+              <th>Scheduled time</th>
+              <!--04-->
+              <th>Scheduled day</th>
+              <!--06-->
+              <th>Type</th>
+              <!--09-->
+              <th>With</th>
+              <!--09-->
+              <th>Accept</th>
+              <!--00--><!--<th *ngif="1!=1">Reject Review Reason</th>-->
+              <!--10-->
+              <th>Approve</th>
+              <!--00--><!--<th *ngif="1!=1">Reject Approval Reason</th>-->
+              <!--11-->
+              <th>Notes</th>
+              <!--12-->
+              <th><a href="javascript:void(0)">...</a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let element of elements">
+              <!--01-->
+              <td style="display:none"><span class="{{element.id}}">{{ element.id }}</span></td>
+              <!--02-->
+              <td>{{ element.createdDate | date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+              <!--03-->
+              <td>
+                <span class="view {{element.id}}">{{ element.scheduledTime}}</span>
+                <input id="{{'im_'+element.id}}" [(ngModel)]="element.scheduledTime" class="form-control edit {{element.id}}" type="text" style="display: none;" />
+              </td>
+              <!--04-->
+              <td>
+                <span class="view {{element.id}}">{{ element.scheduledDay | date:'dd/MM/yyyy'}}</span>
+                <input id="{{'im_'+element.id}}" [(ngModel)]="element.scheduledDay" class="form-control edit {{element.id}}" type="text" style="display: none;" />
+              </td>
+              <!--06-->
+              <td>
+                <span class="view {{element.id}}">{{ lookupSrv.getEntityVal(element.swapTypeId,elementsTypes) }}</span>
+                <select id="{{'im_'+element.id}}" [(ngModel)]="element.swapTypeId" class="form-control custom-select edit {{element.id}}" style="display: none;">
+                  <option *ngFor="let e of elementsTypes" value="{{e.id}}">
+                    {{e.name}}
+                  </option>
+                </select>
+              </td>
+              <!--09-->
+              <td>
+                <span class="view {{element.id}}">{{ element.employeeSwapped.firstName + ' ' + element.employeeSwapped.secondName + ' ' + element.employeeSwapped.lastName }}</span>
+                <select id="{{'im_'+element.id}}" [(ngModel)]="element.employeeSwappedId" class="form-control custom-select edit {{element.id}}" style="display: none;">
+                  <option *ngFor="let e of employees" [attr.disabled]="1!=1 ? '' : null" value="{{e.id}}">
+                    {{e.firstName + ' ' + e.secondName + ' ' + e.lastName}}
+                  </option>
+                </select>
+              </td>
+              <!--09-->
+              <td>{{element.acceptDecision|decision}}</td>
+              <!--<td *ngif="1==1">{{permission.acceptRejectReason}}</td>-->
+              <!--10-->
+              <td>{{element.approvalDecision|decision}}</td>
+              <!--<td *ngif="1==1">{{element.approvalRejectReason}}</td>-->
+              <!--11-->
+              <td>{{element.notes}}</td>
+              <!--12-->
+              <td>
+                <a href="javascript:void(0)" (click)="openEdit(element.id)"
+                   class="btn btn-primary btn-sm view {{element.id}}">
+                  <i class="fa fa-edit"></i>
+                  Edit
+                </a>
+                <a href="javascript:void(0)" (click)="updateElement(element)"
+                   class="btn btn-success btn-sm edit {{element.id}}" style="display: none;">
+                  <i class="fa fa-save"></i>
+                  Save
+                </a>&nbsp;
+                <a href="javascript:void(0)" (click)="resetElement()"
+                   class="btn btn-warning btn-sm edit {{element.id}}" style="display: none;">
+                  <i class="fa fa-undo"></i>
+                  Reset
+                </a>&nbsp;
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+
+      </div>
+      <!-- /.card-footer-->
+    </div>
+  </section>
+  <!-- /.col-md-6 -->
+</div>

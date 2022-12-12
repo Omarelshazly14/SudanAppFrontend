@@ -1,0 +1,238 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a [routerLink]="['/']" class="brand-link">
+    <img src="assets/img/MEKLogo02.png" alt="Logo" class="brand-image img-fluid elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">بوابة السودان للدخول </span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+      </div>
+      <div class="info">
+        <a href="/profile" class="d-block">Sudden Order Gate Management</a>
+      </div>
+    </div>*/ -->
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+  with font-awesome or any other icon font library -->
+        <li class="nav-item">
+          <a [routerLink]="['/home']" class="nav-link" [routerLinkActive]="['active']">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              لوحة التحكم
+            </p>
+          </a>
+        </li>
+        <!--<li style="border-bottom: 1px solid #4b545c;"></li>-->
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p class="text-warning">
+              أدارة السائقين
+              <i class="fas fa-angle-right right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['/emp/view']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  بيانات السائقين
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/emp/0']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  اضافة سائق
+
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/emp/:id']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  تعديل بيانات السائقين
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p class="text-warning">
+              مراقبة السائقين
+              <i class="fas fa-angle-right right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['/swap/me']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  متابعة حركة السائقين
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/swap/request']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  البحث عن السائقين
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/swap/incoming']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  السيارات المتوقفة
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/swap/approve']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  السيارات الغير موجودة
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p class="text-warning">
+              التقارير
+              <i class="fas fa-angle-right right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['/leaves/me']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  داخل السودان
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/leaves/request']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  خارج السودان
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/leaves/review']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  مراجعة جميع السيارات
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/leaves/approve']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  السيارات المؤكدة
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p class="text-warning">
+              ادارة الشركات <i class="fas fa-angle-right right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['/permissions/me']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  أضافة شركة
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/permissions/request']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  بيانات الشركات <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/permissions/review']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  أدارة الشركات
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p class="text-warning">
+              إدارة الرحلات
+              <i class="fas fa-angle-right right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['addEntry']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  إضافة رحلة
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+
+        <li class="nav-item">
+          <a *ngIf="data.isUserAuthenticated" class="nav-link" [routerLink]="['claims']" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"> Claims </a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="data.isUserAdmin" class="nav-link" href="#"> Privacy </a>
+        </li>
+      </ul>
+      -->
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

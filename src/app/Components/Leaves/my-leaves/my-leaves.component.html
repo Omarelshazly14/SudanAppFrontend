@@ -1,0 +1,115 @@
+<div class="row">
+  <section class="col-lg-12 connectedSortable">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+        <div class="input-group col-md-4">
+          <select class="form-control custom-select" id="employeeId" name="employeeId" (change)="refreshBySelectChange()"
+                  [(ngModel)]="employeeId">
+            <option selected>All</option>
+            <option [ngValue]="data.EmpId">My</option>
+            <ng-container *ngIf="data.isUserOfficer">
+              <option *ngFor="let e of employees" [attr.disabled]="1!=1 ? '' : null" [ngValue]="e.id">
+                {{e.firstName + ' ' + e.secondName + ' ' + e.lastName}}
+              </option>
+            </ng-container>
+          </select>
+          <div class="input-group-prepend">
+            <span class="input-group-text">Leaves</span>
+          </div>
+          <!--<h3 class=""> Leaves</h3>-->
+        </div>
+        </div>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <!--<button type="button" class="btn btn-tool" data-card-widget="remove">
+      <i class="fas fa-times"></i>
+    </button>-->
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table id="tblItems" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+               class="table table-bordered table-hover table-valign-middle">
+          <thead>
+            <tr>
+              <!--01--><th style="display:none">Id</th>
+              <!--02--><th>Requested At</th>
+              <!--03--><th>Start</th>
+              <!--04--><th>End</th>
+              <!--05--><th># of days</th>
+              <!--06--><th>Type</th>
+              <!--07--><th>Actual Start</th>
+              <!--08--><th>Actual End</th>
+              <!--09--><th>Review</th>
+              <!--00--><!--<th *ngif="1!=1">Reject Review Reason</th>-->
+              <!--10--><th>Approve</th>
+              <!--00--><!--<th *ngif="1!=1">Reject Approval Reason</th>-->
+              <!--11--><th>Notes</th>
+              <!--12--><th><a href="javascript:void(0)">...</a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let leave of leaves">
+              <!--01--><td style="display:none"><span class="{{leave.id}}">{{ leave.id }}</span></td>
+              <!--02--><td>{{ leave.createdDate | date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+              <!--03--><td>
+                <span class="view {{leave.id}}">{{ leave.startDate | date:'dd/MM/yyyy'}}</span>
+                <input id="{{'im_'+leave.id}}" [(ngModel)]="leave.startDate" class="form-control edit {{leave.id}}" type="text" style="display: none;" />
+              </td>
+              <!--04--><td>
+                <span class="view {{leave.id}}">{{ leave.endDate | date:'dd/MM/yyyy'}}</span>
+                <input id="{{'im_'+leave.id}}" [(ngModel)]="leave.endDate" class="form-control edit {{leave.id}}" type="text" style="display: none;" />
+              </td>
+              <!--05--><td>
+                <span class="view {{leave.id}}">{{ leave.numberOfDays }}</span>
+                <input id="{{'im_'+leave.id}}" [(ngModel)]="leave.numberOfDays" class="form-control edit {{leave.id}}" type="text" style="display: none;" />
+              </td>
+              <!--06--><td>
+                <span class="view {{leave.id}}">{{ lookupSrv.getEntityVal(leave.leaveTypeId,leavesTypes) }}</span>
+                <select id="{{'im_'+leave.id}}" [(ngModel)]="leave.leaveTypeId" class="form-control custom-select edit {{leave.id}}" style="display: none;">
+                  <option *ngFor="let e of leavesTypes" value="{{e.id}}">
+                    {{e.name}}
+                  </option>
+                </select>
+              </td>
+              <!--07--><td>
+                <span class="view {{leave.id}}">{{ leave.actualStartDate }}</span>
+                <input id="{{'im_'+leave.id}}" [(ngModel)]="leave.actualStartDate" class="form-control edit {{leave.id}}" type="text" style="display: none;" />
+              </td>
+              <!--08--><td>
+                <span class="view {{leave.id}}">{{ leave.actualEndDate }}</span>
+                <input id="{{'im_'+leave.id}}" [(ngModel)]="leave.actualEndDate" class="form-control edit {{leave.id}}" type="text" style="display: none;" />
+              </td>
+              <!--09--><td>{{leave.reviewDecision|decision}}</td>
+              <!--<td *ngif="1==1">{{leave.reviewRejectReason}}</td>-->
+              <!--10--><td>{{leave.approvalDecision|decision}}</td>
+              <!--<td *ngif="1==1">{{leave.approvalRejectReason}}</td>-->
+              <!--11--><td>{{leave.notes}}</td>
+              <!--12--><td>
+                <a href="javascript:void(0)" (click)="openEdit(leave.id)"
+                   class="btn btn-primary btn-sm view {{leave.id}}">
+                  <i class="fa fa-edit"></i>
+                  Edit
+                </a>
+                <a href="javascript:void(0)" (click)="updateLeave(leave)"
+                   class="btn btn-success btn-sm edit {{leave.id}}" style="display: none;">
+                  <i class="fa fa-save"></i>
+                  Save
+                </a>&nbsp;
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+
+      </div>
+      <!-- /.card-footer-->
+    </div>
+  </section>
+  <!-- /.col-md-6 -->
+</div>

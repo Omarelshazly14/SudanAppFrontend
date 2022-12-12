@@ -1,0 +1,113 @@
+<div class="row">
+  <section class="col-lg-12 connectedSortable">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Review Permissions</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <!--<button type="button" class="btn btn-tool" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+          </button>-->
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table id="tblItems" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+               class="table table-bordered table-hover table-valign-middle">
+          <thead>
+            <tr>
+              <th style="display:none">Id</th>
+              <th>Requested At</th>
+              <th>Emp Code</th>
+              <th>Name</th>
+              <th>Scheduled Time</th>
+              <th>Scheduled Day</th>
+              <th>Type</th>
+              <th>Notes</th>
+              <th><a href="javascript:void(0)">...</a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let permission of permissions">
+              <td style="display:none"><span class="{{permission.id}}">{{ permission.id }}</span></td>
+              <td>{{ permission.createdDate | date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+              <td>{{permission.employee.empCode}}</td>
+              <td>{{permission.employee.firstName + ' ' + permission.employee.secondName + ' ' + permission.employee.lastName}}</td>
+              <td>
+                <span class="view {{permission.id}}">{{ permission.scheduledTime}}</span>
+                <input id="{{'im_'+permission.id}}" [(ngModel)]="permission.scheduledTime" class="form-control edit {{permission.id}}" type="text" style="display: none;" />
+              </td>
+              <td>
+                <span class="view {{permission.id}}">{{ permission.scheduledDay | date:'dd/MM/yyyy'}}</span>
+                <input id="{{'im_'+permission.id}}" [(ngModel)]="permission.scheduledDay" class="form-control edit {{permission.id}}" type="text" style="display: none;" />
+              </td>
+              <td>
+                <span class="view {{permission.id}}">{{ lookupSrv.getEntityVal(permission.permissionTypeId,permissionsTypes) }}</span>
+                <select id="{{'im_'+permission.id}}" [(ngModel)]="permission.permissionTypeId" class="form-control custom-select edit {{permission.id}}" style="display: none;">
+                  <option *ngFor="let e of permissionsTypes" value="{{e.id}}">
+                    {{e.name}}
+                  </option>
+                </select>
+              </td>
+              <td>{{permission.notes}}</td>
+              <td>
+                <a href="javascript:void(0)" (click)="openM(content,permission.id,permission.reviewDecision,permission.reviewRejectReason)"
+                   class="btn btn-primary btn-sm view {{permission.id}}">
+                  <i class="fa fa-edit"></i>
+                  Review
+                </a>
+                <a href="javascript:void(0)" (click)="updatePermission(permission)"
+                   class="btn btn-success btn-sm edit {{permission.id}}" style="display: none;">
+                  <i class="fa fa-save"></i>
+                  Save
+                </a>&nbsp;
+                <input class="custom-control-input" type="checkbox" name="my-checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+      </div>
+      <!-- /.card-footer-->
+    </div>
+  </section>
+  <!-- /.col-md-6 -->
+</div>
+<div style="display:none">
+  <div id="dvReview">
+    <label>{{permissionId}}</label>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reviewing Permission</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form>
+      <input type="hidden" value="{{permissionId}}" />
+      <div class="form-group">
+        <label for="review">Accept/Reject</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" checked name="decision" data-bootstrap-switch [(ngModel)]="decision" />
+            </div>
+          </div>
+          <input id="review" class="form-control" placeholder="Reason" name="reason" [(ngModel)]="reason">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <!--modal.close('Save click')-->
+    <button type="button" class="btn btn-outline-dark" (click)="reviewPermission()">Save</button>
+  </div>
+</ng-template>
