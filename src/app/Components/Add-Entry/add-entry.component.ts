@@ -24,7 +24,8 @@ export class AddEntryComponent implements OnInit {
     addEntry: FormGroup;
     showQRCode: boolean = false;
     qrCodeSrc: any;
-    qrText: string = 'test'
+    qrText: string = '';
+    readerResult: any;
     title: string = "إضافة رحلة جديدة"
     constructor(private fb: FormBuilder, private _entryService: EntryService, private data: MngDataService, private _driverService: DriverService, private _carService: CarService) {
         this.addDriver = this.fb.group({
@@ -49,6 +50,7 @@ export class AddEntryComponent implements OnInit {
         //     ownerCarCode: ['', Validators.required]
         // })
     }
+
     ngOnInit(): void {
         this.data.setTitle(`${this.title}`);
     }
@@ -91,9 +93,33 @@ export class AddEntryComponent implements OnInit {
         // return blob image after conversion
         return new Blob([uInt8Array], { type: imageType })
     }
+
+    getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            this.readerResult = reader.result;
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+
     submitDriver() {
         const val = this.addDriver.value;
         console.log(this.addDriver)
+        // var inputs = document.querySelectorAll('input[type=file]');
+        // inputs.forEach(async (input: any) => {
+        //     //deal with each input
+        //     let file = input.files[0];
+        //     await this.getBase64(file)
+        //     setTimeout(() => {
+        //         val.licenseImg = this.readerResult;
+        //     }, 500)
+
+        // });
+
         if (this.addDriver.status == 'VALID') {
             var newDriver = new Driver(val.name, val.userName, val.email, val.password, val.licenseNo, val.licenseImg, val.passportId, val.ownerCode)
 
@@ -109,8 +135,20 @@ export class AddEntryComponent implements OnInit {
     }
     submitCar() {
         const val = this.addCar.value;
+
+        // var inputs = document.querySelectorAll('input[type=file]');
+        // inputs.forEach((input: any) => {
+        //     //deal with each input
+        //     let file = input.files[0];
+        //     if (input.id == "imgCarNumber")
+        //         val.imgCarNumber = this.getBase64(file)
+
+        //     if (input.id == "imglicenseNumber")
+        //         val.imglicenseNumber = this.getBase64(file)
+        // });
+
         if (this.addCar.status == "VALID") {
-            var newCar = new Car(val.carPlateNumber, val.imgCarNumber, val.licenseNumber, val.imglicenseNumber);
+            var newCar = new Car(val.carPlateNumber, val.imgCarNumber, val.licenseNumber, val.imglicenseNumber, this.addDriver.value.ownerCode, this.driverId);
             this._carService.addCar(newCar).subscribe(res => {
                 if (res > 0) {
                     console.log("Car Added");
