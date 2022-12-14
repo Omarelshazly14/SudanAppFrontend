@@ -62,6 +62,9 @@ import { MainComponent } from './components/KPI/main/main.component';
 import { ViewComponent } from './components/KPI/view/view.component';
 import { AddEntryComponent } from './Components/Add-Entry/add-entry.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { BingMapComponent } from './components/bing-map/bing-map.component';
+import { DriverTrackComponent } from './components/driver-track/driver-track.component';
+import { UnderConstructionComponent } from './components/under-construction/under-construction.component';
 
 
 const appInitializerFn = (appConfig: AppConfigServiceService) => {
@@ -119,7 +122,10 @@ const appInitializerFn = (appConfig: AppConfigServiceService) => {
     CancelComponent,
     MainComponent,
     ViewComponent,
-    AddEntryComponent
+    AddEntryComponent,
+    BingMapComponent,
+    DriverTrackComponent,
+    UnderConstructionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,148 +1,175 @@
-<div class="container">
-    <form [formGroup]="addDriver" *ngIf="showDriverDetails">
-        <div class="mb-3">
-            <label for="name" class="form-label">Driver Name</label>
-            <input type="text" name="name" formControlName="name" class="form-control" id="name"
-                placeholder="Enter Driver Name">
-            <div *ngIf="addDriver.controls.name.errors?.['required']" class="text-red">
-                Driver Name is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="userName" class="form-label">User Name</label>
-            <input type="text" name="userName" formControlName="userName" class="form-control" id="userName"
-                placeholder="Enter Driver Usernme">
-            <div *ngIf="addDriver.controls.userName.errors?.['required']" class="text-red">
-                Username is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Driver Password</label>
-            <input type="password" name="password" formControlName="password" class="form-control" id="password"
-                placeholder="Enter Driver password">
-            <div *ngIf="addDriver.controls.password.errors?.['required']" class="text-red">
-                Driver Password is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="licenseNo" class="form-label">Driver License Number</label>
-            <input type="text" name="licenseNo" formControlName="licenseNo" class="form-control" id="licenseNo"
-                placeholder="Enter Driver License Number">
-            <div *ngIf="addDriver.controls.licenseNo.errors?.['required']" class="text-red">
-                Driver License Number is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="licenseImg" class="form-label">Driver License Image</label>
-            <input type="file" name="licenseImg" formControlName="licenseImg" class="form-control" id="licenseImg">
-            <div *ngIf="addDriver.controls.licenseImg.errors?.['required']" class="text-red">
-                Driver License Image is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Driver Email</label>
-            <input type="email" name="email" formControlName="email" class="form-control" id="email"
-                placeholder="Enter Driver Email">
-            <div *ngIf="addDriver.controls.email.errors?.['required']" class="text-red">
-                Driver Email is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="passportId" class="form-label">Driver Passport Id</label>
-            <input type="text" name="passportId" formControlName="passportId" class="form-control" id="passportId"
-                placeholder="Enter Driver Passport Id">
-            <div *ngIf="addDriver.controls.passportId.errors?.['required']" class="text-red">
-                Driver Passport Id is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="ownerCode" class="form-label">Car Owner Code</label>
-            <input type="ownerCode" name="ownerCode" formControlName="ownerCode" class="form-control" id="ownerCode"
-                placeholder="Enter Car Owner Code">
-            <div *ngIf="addDriver.controls.ownerCode.errors?.['required']" class="text-red">
-                Car Owner Code is required.
-            </div>
-        </div>
-        <div class="col-3">
-            <button (click)="submitDriver()" class="btn btn-primary btn-block">Add Driver</button>
-        </div>
-    </form>
-    <form [formGroup]="addCar" *ngIf="showCarDetails">
-        <div class="mb-3">
-            <label for="carPlateNumber" class="form-label">Car Plate Number</label>
-            <input type="text" name="carPlateNumber" formControlName="carPlateNumber" class="form-control"
-                id="carPlateNumber" placeholder="Enter Car Plate Number">
-            <div *ngIf="addCar.controls.carPlateNumber.errors?.['required']" class="text-red">
-                Car Plate Number is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="imgCarNumber" class="form-label">Car Plate Image</label>
-            <input type="file" name="imgCarNumber" formControlName="imgCarNumber" class="form-control"
-                id="imgCarNumber">
-            <div *ngIf="addCar.controls.imgCarNumber.errors?.['required']" class="text-red">
-                Car Plate Image is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="licenseNumber" class="form-label">License Number</label>
-            <input type="text" name="licenseNumber" formControlName="licenseNumber" class="form-control"
-                id="licenseNumber" placeholder="Enter License Number">
-            <div *ngIf="addCar.controls.licenseNumber.errors?.['required']" class="text-red">
-                License Number is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="imglicenseNumber" class="form-label">License Image</label>
-            <input type="file" name="imglicenseNumber" formControlName="imglicenseNumber" class="form-control"
-                id="imglicenseNumber">
-            <div *ngIf="addCar.controls.imglicenseNumber.errors?.['required']" class="text-red">
-                License Image is required.
-            </div>
-        </div>
-        <div class="col-3">
-            <button (click)="submitCar()" class="btn btn-primary btn-block">Submit Entry</button>
-        </div>
-    </form>
-    <div *ngIf="showQRCode">
-        <div class="qrcodeImage">
-            <qrcode #parent [elementType]="'img'" [errorCorrectionLevel]="'M'" [qrdata]="qrText" [scale]="1"
-                [width]="400" [allowEmptyString]="true" [colorDark]="'#000000ff'" [colorLight]="'#ffffffff'"
-                [margin]="4" (qrCodeURL)="onChangeURL($event)"></qrcode>
-        </div>
-        <div class="downloadButton">
-            <button class="btn btn-primary" (click)="saveAsImage(parent)">
-                Download QR Code Image
+<div class="row">
+    <section class="col-lg-12 connectedSortable">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">إضافة رحلة</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
             </button>
+            <!--<button type="button" class="btn btn-tool" data-card-widget="remove">
+              <i class="fas fa-times"></i>
+            </button>-->
+          </div>
         </div>
-    </div>
-    <!-- <form [formGroup]="addEntry" *ngIf="showAddEntry">
-        <div class="mb-3">
-            <label for="driverId" class="form-label">Driver ID</label>
-            <input type="number" name="driverId" formControlName="driverId" class="form-control" id="driverId"
-                placeholder="Enter Driver ID" min="0">
-            <div *ngIf="addEntry.controls.driverId.errors?.['required']" class="text-red">
-                Driver ID is required.
+        <!-- /.card-header -->
+        <div class="card-body table-responsive">
+            <div class="container">
+                <form [formGroup]="addDriver" *ngIf="showDriverDetails">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Driver Name</label>
+                        <input type="text" name="name" formControlName="name" class="form-control" id="name"
+                            placeholder="Enter Driver Name">
+                        <div *ngIf="addDriver.controls.name.errors?.['required']" class="text-red">
+                            Driver Name is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">User Name</label>
+                        <input type="text" name="userName" formControlName="userName" class="form-control" id="userName"
+                            placeholder="Enter Driver Usernme">
+                        <div *ngIf="addDriver.controls.userName.errors?.['required']" class="text-red">
+                            Username is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Driver Password</label>
+                        <input type="password" name="password" formControlName="password" class="form-control" id="password"
+                            placeholder="Enter Driver password">
+                        <div *ngIf="addDriver.controls.password.errors?.['required']" class="text-red">
+                            Driver Password is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="licenseNo" class="form-label">Driver License Number</label>
+                        <input type="text" name="licenseNo" formControlName="licenseNo" class="form-control" id="licenseNo"
+                            placeholder="Enter Driver License Number">
+                        <div *ngIf="addDriver.controls.licenseNo.errors?.['required']" class="text-red">
+                            Driver License Number is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="licenseImg" class="form-label">Driver License Image</label>
+                        <input type="file" name="licenseImg" formControlName="licenseImg" class="form-control" id="licenseImg">
+                        <div *ngIf="addDriver.controls.licenseImg.errors?.['required']" class="text-red">
+                            Driver License Image is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Driver Email</label>
+                        <input type="email" name="email" formControlName="email" class="form-control" id="email"
+                            placeholder="Enter Driver Email">
+                        <div *ngIf="addDriver.controls.email.errors?.['required']" class="text-red">
+                            Driver Email is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passportId" class="form-label">Driver Passport Id</label>
+                        <input type="text" name="passportId" formControlName="passportId" class="form-control" id="passportId"
+                            placeholder="Enter Driver Passport Id">
+                        <div *ngIf="addDriver.controls.passportId.errors?.['required']" class="text-red">
+                            Driver Passport Id is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ownerCode" class="form-label">Car Owner Code</label>
+                        <input type="ownerCode" name="ownerCode" formControlName="ownerCode" class="form-control" id="ownerCode"
+                            placeholder="Enter Car Owner Code">
+                        <div *ngIf="addDriver.controls.ownerCode.errors?.['required']" class="text-red">
+                            Car Owner Code is required.
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <button (click)="submitDriver()" class="btn btn-primary btn-block">Add Driver</button>
+                    </div>
+                </form>
+                <form [formGroup]="addCar" *ngIf="showCarDetails">
+                    <div class="mb-3">
+                        <label for="carPlateNumber" class="form-label">Car Plate Number</label>
+                        <input type="text" name="carPlateNumber" formControlName="carPlateNumber" class="form-control"
+                            id="carPlateNumber" placeholder="Enter Car Plate Number">
+                        <div *ngIf="addCar.controls.carPlateNumber.errors?.['required']" class="text-red">
+                            Car Plate Number is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imgCarNumber" class="form-label">Car Plate Image</label>
+                        <input type="file" name="imgCarNumber" formControlName="imgCarNumber" class="form-control"
+                            id="imgCarNumber">
+                        <div *ngIf="addCar.controls.imgCarNumber.errors?.['required']" class="text-red">
+                            Car Plate Image is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="licenseNumber" class="form-label">License Number</label>
+                        <input type="text" name="licenseNumber" formControlName="licenseNumber" class="form-control"
+                            id="licenseNumber" placeholder="Enter License Number">
+                        <div *ngIf="addCar.controls.licenseNumber.errors?.['required']" class="text-red">
+                            License Number is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imglicenseNumber" class="form-label">License Image</label>
+                        <input type="file" name="imglicenseNumber" formControlName="imglicenseNumber" class="form-control"
+                            id="imglicenseNumber">
+                        <div *ngIf="addCar.controls.imglicenseNumber.errors?.['required']" class="text-red">
+                            License Image is required.
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <button (click)="submitCar()" class="btn btn-primary btn-block">Submit Entry</button>
+                    </div>
+                </form>
+                <div *ngIf="showQRCode">
+                    <div class="qrcodeImage">
+                        <qrcode #parent [elementType]="'img'" [errorCorrectionLevel]="'M'" [qrdata]="qrText" [scale]="1"
+                            [width]="400" [allowEmptyString]="true" [colorDark]="'#000000ff'" [colorLight]="'#ffffffff'"
+                            [margin]="4" (qrCodeURL)="onChangeURL($event)"></qrcode>
+                    </div>
+                    <div class="downloadButton">
+                        <button class="btn btn-primary" (click)="saveAsImage(parent)">
+                            Download QR Code Image
+                        </button>
+                    </div>
+                </div>
+                <!-- <form [formGroup]="addEntry" *ngIf="showAddEntry">
+                    <div class="mb-3">
+                        <label for="driverId" class="form-label">Driver ID</label>
+                        <input type="number" name="driverId" formControlName="driverId" class="form-control" id="driverId"
+                            placeholder="Enter Driver ID" min="0">
+                        <div *ngIf="addEntry.controls.driverId.errors?.['required']" class="text-red">
+                            Driver ID is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="carId" class="form-label">Car ID</label>
+                        <input type="number" name="carId" formControlName="carId" class="form-control" id="driverId"
+                            placeholder="Enter Car ID" min="0">
+                        <div *ngIf="addEntry.controls.driverId.errors?.['required']" class="text-red">
+                            Car ID is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ownerCarId" class="form-label">Car Owner ID</label>
+                        <input type="text" name="ownerCarId" formControlName="ownerCarId" class="form-control" id="ownerCarId"
+                            placeholder="Enter Car Owner ID">
+                        <div *ngIf="addEntry.controls.driverId.errors?.['required']" class="text-red">
+                            Car Owner ID is required.
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <button (click)="submitEntry()" class="btn btn-primary btn-block">Add Entry</button>
+                    </div>
+                </form> -->
             </div>
+            
         </div>
-        <div class="mb-3">
-            <label for="carId" class="form-label">Car ID</label>
-            <input type="number" name="carId" formControlName="carId" class="form-control" id="driverId"
-                placeholder="Enter Car ID" min="0">
-            <div *ngIf="addEntry.controls.driverId.errors?.['required']" class="text-red">
-                Car ID is required.
-            </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
         </div>
-        <div class="mb-3">
-            <label for="ownerCarId" class="form-label">Car Owner ID</label>
-            <input type="text" name="ownerCarId" formControlName="ownerCarId" class="form-control" id="ownerCarId"
-                placeholder="Enter Car Owner ID">
-            <div *ngIf="addEntry.controls.driverId.errors?.['required']" class="text-red">
-                Car Owner ID is required.
-            </div>
-        </div>
-        <div class="col-3">
-            <button (click)="submitEntry()" class="btn btn-primary btn-block">Add Entry</button>
-        </div>
-    </form> -->
-</div>
+        <!-- /.card-footer-->
+      </div>
+    </section>
+    <!-- /.col-md-6 -->
+  </div>
+  

@@ -40,6 +40,8 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
 import { AuthGuardService } from './Services/guards/auth-guard.service';
 import { MainComponent } from './components/KPI/main/main.component';
 import { AddEntryComponent } from './Components/Add-Entry/add-entry.component';
+import { DriverTrackComponent } from './components/driver-track/driver-track.component';
+import { UnderConstructionComponent } from './components/under-construction/under-construction.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -113,6 +115,8 @@ const routes: Routes = [
           { path: 'claims', component: ClaimsComponent, canActivate: [AuthGuardService] },
           { path: 'unauthorized', component: UnauthorizedComponent },
           { path: 'addEntry', component: AddEntryComponent },
+          { path: 'driversTracking', component: DriverTrackComponent },
+          { path: 'underconstruction', component: UnderConstructionComponent },
         ]
       },
     ]
