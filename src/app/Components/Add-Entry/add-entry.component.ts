@@ -129,8 +129,18 @@ export class AddEntryComponent implements OnInit {
                     this.showDriverDetails = false;
                     this.showCarDetails = true;
                     this.driverId = res;
+                } else if (res == 0) {
+                    alert("برجاء المحاولة بإسم مستخدم آخر")
                 }
-            }, (err) => console.log(err))
+            }, (err) => {
+                if (err.error == -1) {
+                    alert("كود مالك السيارة خطأ، برجاء إدخال كود صحيح")
+                } else if (err.error == -2) {
+                    alert("اسم المستخدم غير صالح، برجاء المحاولة بإسم مستخدم آخر")
+                } else {
+                    alert("خطأ في إضافة السائق، برجاء التأكد من صحة البيانات")
+                }
+            })
         }
     }
     submitCar() {
@@ -155,8 +165,10 @@ export class AddEntryComponent implements OnInit {
                     this.showCarDetails = false;
                     this.carId = res;
                     this.submitEntry();
+                } else if (res == 0) {
+                    alert("الرجاء التأكد من صحة البيانات")
                 }
-            }, (err) => console.log(err))
+            }, (err) => alert("الرجاء التأكد من صحة البيانات"))
         }
     }
 

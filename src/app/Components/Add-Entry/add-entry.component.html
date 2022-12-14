@@ -1,107 +1,116 @@
 <div class="container">
     <form [formGroup]="addDriver" *ngIf="showDriverDetails">
         <div class="mb-3">
-            <label for="name" class="form-label">Driver Name</label>
+            <label for="name" class="form-label">اسم السائق</label>
             <input type="text" name="name" formControlName="name" class="form-control" id="name"
                 placeholder="Enter Driver Name">
             <div *ngIf="addDriver.controls.name.errors?.['required']" class="text-red">
-                Driver Name is required.
+                ادخل اسم السائق
+            </div>
+            <div *ngIf="addDriver.controls.name.errors?.['minLength']" class="text-red">
+                ادخل أكثر من 3 حروف
             </div>
         </div>
         <div class="mb-3">
-            <label for="userName" class="form-label">User Name</label>
+            <label for="userName" class="form-label">اسم المستخدم</label>
             <input type="text" name="userName" formControlName="userName" class="form-control" id="userName"
                 placeholder="Enter Driver Usernme">
             <div *ngIf="addDriver.controls.userName.errors?.['required']" class="text-red">
-                Username is required.
+                ادخل اسم المستخدم
+            </div>
+            <div *ngIf="addDriver.controls.userName.errors?.['minLength']" class="text-red">
+                ادخل اكثر من 3 حروف
             </div>
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Driver Password</label>
+            <label for="password" class="form-label">كلمة السر</label>
             <input type="password" name="password" formControlName="password" class="form-control" id="password"
                 placeholder="Enter Driver password">
             <div *ngIf="addDriver.controls.password.errors?.['required']" class="text-red">
-                Driver Password is required.
+                ادخل كلمة السر
             </div>
         </div>
         <div class="mb-3">
-            <label for="licenseNo" class="form-label">Driver License Number</label>
+            <label for="licenseNo" class="form-label">رقم رخصة السائق</label>
             <input type="text" name="licenseNo" formControlName="licenseNo" class="form-control" id="licenseNo"
                 placeholder="Enter Driver License Number">
             <div *ngIf="addDriver.controls.licenseNo.errors?.['required']" class="text-red">
-                Driver License Number is required.
+                ادخل رقم رخصة السائق
             </div>
         </div>
         <div class="mb-3">
-            <label for="licenseImg" class="form-label">Driver License Image</label>
+            <label for="licenseImg" class="form-label">صورة رخصة السائق</label>
             <input type="file" name="licenseImg" formControlName="licenseImg" class="form-control" id="licenseImg">
             <div *ngIf="addDriver.controls.licenseImg.errors?.['required']" class="text-red">
-                Driver License Image is required.
+                قم برفع صورة رخصة السائق
             </div>
         </div>
         <div class="mb-3">
-            <label for="email" class="form-label">Driver Email</label>
+            <label for="email" class="form-label">البريد الإلكتروني للسائق</label>
             <input type="email" name="email" formControlName="email" class="form-control" id="email"
                 placeholder="Enter Driver Email">
             <div *ngIf="addDriver.controls.email.errors?.['required']" class="text-red">
-                Driver Email is required.
+                ادخل بريد إلكتروني
+            </div>
+            <div *ngIf="addDriver.controls.email.errors?.['email']" class="text-red">
+                ادخل بريد إلكتروني صحيح
             </div>
         </div>
         <div class="mb-3">
-            <label for="passportId" class="form-label">Driver Passport Id</label>
+            <label for="passportId" class="form-label">رقم الباسبورد</label>
             <input type="text" name="passportId" formControlName="passportId" class="form-control" id="passportId"
                 placeholder="Enter Driver Passport Id">
             <div *ngIf="addDriver.controls.passportId.errors?.['required']" class="text-red">
-                Driver Passport Id is required.
+                ادخل رقم الباسبورد
             </div>
         </div>
         <div class="mb-3">
-            <label for="ownerCode" class="form-label">Car Owner Code</label>
+            <label for="ownerCode" class="form-label">كود مالك السيارة</label>
             <input type="ownerCode" name="ownerCode" formControlName="ownerCode" class="form-control" id="ownerCode"
                 placeholder="Enter Car Owner Code">
             <div *ngIf="addDriver.controls.ownerCode.errors?.['required']" class="text-red">
-                Car Owner Code is required.
+                ادخل كود مالك السيارة
             </div>
         </div>
         <div class="col-3">
-            <button (click)="submitDriver()" class="btn btn-primary btn-block">Add Driver</button>
+            <button (click)="submitDriver()" class="btn btn-primary btn-block">إضافة سائق</button>
         </div>
     </form>
     <form [formGroup]="addCar" *ngIf="showCarDetails">
         <div class="mb-3">
-            <label for="carPlateNumber" class="form-label">Car Plate Number</label>
+            <label for="carPlateNumber" class="form-label">رقم لوحة السيارة</label>
             <input type="text" name="carPlateNumber" formControlName="carPlateNumber" class="form-control"
                 id="carPlateNumber" placeholder="Enter Car Plate Number">
             <div *ngIf="addCar.controls.carPlateNumber.errors?.['required']" class="text-red">
-                Car Plate Number is required.
+                ادخل رقم لوحة السيارة
             </div>
         </div>
         <div class="mb-3">
-            <label for="imgCarNumber" class="form-label">Car Plate Image</label>
+            <label for="imgCarNumber" class="form-label">صورة لوحة السيارة</label>
             <input type="file" name="imgCarNumber" formControlName="imgCarNumber" class="form-control"
                 id="imgCarNumber">
             <div *ngIf="addCar.controls.imgCarNumber.errors?.['required']" class="text-red">
-                Car Plate Image is required.
+                قم برفع صورة لوحة السيارة
             </div>
         </div>
         <div class="mb-3">
-            <label for="licenseNumber" class="form-label">License Number</label>
+            <label for="licenseNumber" class="form-label">رقم رخصة السيارة</label>
             <input type="text" name="licenseNumber" formControlName="licenseNumber" class="form-control"
                 id="licenseNumber" placeholder="Enter License Number">
             <div *ngIf="addCar.controls.licenseNumber.errors?.['required']" class="text-red">
-                License Number is required.
+                ادخل رقم رخصة السيارة
             </div>
         </div>
         <div class="mb-3">
-            <label for="imglicenseNumber" class="form-label">License Image</label>
+            <label for="imglicenseNumber" class="form-label">صورة رخصة السيارة</label>
             <input type="file" name="imglicenseNumber" formControlName="imglicenseNumber" class="form-control"
                 id="imglicenseNumber">
             <div *ngIf="addCar.controls.imglicenseNumber.errors?.['required']" class="text-red">
-                License Image is required.
+                قم برفع صورة رخصة السيارة
             </div>
         </div>
         <div class="col-3">
-            <button (click)="submitCar()" class="btn btn-primary btn-block">Submit Entry</button>
+            <button (click)="submitCar()" class="btn btn-primary btn-block">تسجيل رحلة جديدة</button>
         </div>
     </form>
     <div *ngIf="showQRCode">
@@ -112,7 +121,7 @@
         </div>
         <div class="downloadButton">
             <button class="btn btn-primary" (click)="saveAsImage(parent)">
-                Download QR Code Image
+                تحميل
             </button>
         </div>
     </div>
