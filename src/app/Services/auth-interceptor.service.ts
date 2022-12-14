@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { MngDataService } from './mng-data.service';
 import { Constants } from '../Data/constants';
+import { finalize } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +13,23 @@ import { Constants } from '../Data/constants';
 export class AuthInterceptorService implements HttpInterceptor {
   constructor(
     private _router: Router,
-    private data: MngDataService
+    private data: MngDataService,
+    private spinner: NgxSpinnerService
   ) { }
   intercept(req: HttpRequest<any>,
     next: HttpHandler): Observable<HttpEvent<any>> {
+    this.spinner.show();
     const idToken = localStorage.getItem("id_token");
 
     if (idToken) {
       const cloned = req.clone({
         headers: req.headers.set("Authorization", `Bearer ${idToken}`)
       });
-      return next.handle(cloned);
+      return next.handle(cloned).pipe(
+        finalize(() => {
+          this.spinner.hide();
+        })
+      ) as Observable<HttpEvent<any>>;;
     }
     else {
       this._router.navigate(['/login']);
