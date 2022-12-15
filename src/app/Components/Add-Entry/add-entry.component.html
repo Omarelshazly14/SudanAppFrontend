@@ -7,7 +7,7 @@
             <div *ngIf="addDriver.controls.name.errors?.['required']" class="text-red">
                 ادخل اسم السائق
             </div>
-            <div *ngIf="addDriver.controls.name.errors?.['minLength']" class="text-red">
+            <div *ngIf="addDriver.controls.name.errors?.['minlength']" class="text-red">
                 ادخل أكثر من 3 حروف
             </div>
         </div>
@@ -18,7 +18,7 @@
             <div *ngIf="addDriver.controls.userName.errors?.['required']" class="text-red">
                 ادخل اسم المستخدم
             </div>
-            <div *ngIf="addDriver.controls.userName.errors?.['minLength']" class="text-red">
+            <div *ngIf="addDriver.controls.userName.errors?.['minlength']" class="text-red">
                 ادخل اكثر من 3 حروف
             </div>
         </div>
@@ -28,6 +28,9 @@
                 placeholder="ادخل كلمة السر">
             <div *ngIf="addDriver.controls.password.errors?.['required']" class="text-red">
                 ادخل كلمة السر
+            </div>
+            <div *ngIf="addDriver.controls.password.errors?.['minlength']" class="text-red">
+                كلمة السر يجب ألا تقل عن 6 حروف
             </div>
         </div>
         <div class="mb-3">
