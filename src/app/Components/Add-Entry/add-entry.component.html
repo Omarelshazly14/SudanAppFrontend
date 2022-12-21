@@ -117,16 +117,21 @@
         </div>
     </form>
     <div *ngIf="showQRCode">
-        <div class="qrcodeImage">
-            <qrcode #parent [elementType]="'img'" [errorCorrectionLevel]="'M'" [qrdata]="qrText" [scale]="1"
-                [width]="400" [allowEmptyString]="true" [colorDark]="'#000000ff'" [colorLight]="'#ffffffff'"
-                [margin]="4" (qrCodeURL)="onChangeURL($event)"></qrcode>
+        <div>
         </div>
         <div class="downloadButton">
             <button class="btn btn-primary" (click)="saveAsImage(parent)">
                 تحميل
             </button>
         </div>
+    </div>
+    <div id="Qr">
+        <qrcode #qrCode [elementType]="'img'" [errorCorrectionLevel]="'M'" [qrdata]="qrText" [scale]="1" [width]="400"
+            [allowEmptyString]="true" [colorDark]="'#000000ff'" [colorLight]="'#ffffffff'"
+            (qrCodeURL)="onChangeURL($event)" [margin]="4" hidden>
+        </qrcode>
+        <img id="entryCard" src="assets/img/EntryCard.jpg" alt="background" width="1182" height="788" hidden />
+        <canvas #myCanvas width="1182" height="788" style="border:1px solid #d3d3d3;" hidden></canvas>
     </div>
     <!-- <form [formGroup]="addEntry" *ngIf="showAddEntry">
         <div class="mb-3">

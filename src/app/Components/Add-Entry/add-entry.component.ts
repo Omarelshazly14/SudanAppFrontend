@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Car } from "src/app/Data/Car";
 import { Driver } from "src/app/Data/Driver";
@@ -26,7 +26,10 @@ export class AddEntryComponent implements OnInit {
     qrCodeSrc: any;
     qrText: string = '';
     readerResult: any;
-    title: string = "إضافة رحلة جديدة"
+    title: string = "إضافة رحلة جديدة";
+    @ViewChild('myCanvas') public canvas: ElementRef;
+    @ViewChild('qrCode') public qrCode: ElementRef;
+
     constructor(private fb: FormBuilder, private _entryService: EntryService, private data: MngDataService, private _driverService: DriverService, private _carService: CarService) {
         this.addDriver = this.fb.group({
             name: ['', [Validators.required, Validators.minLength(3)]],
@@ -54,45 +57,7 @@ export class AddEntryComponent implements OnInit {
     ngOnInit(): void {
         this.data.setTitle(`${this.title}`);
     }
-    onChangeURL(url) {
-        this.qrCodeSrc = url;
-    }
-    saveAsImage(parent: any) {
-        let parentElement = null
-        // fetches base 64 data from image
-        // parentElement contains the base64 encoded image src
-        // you might use to store somewhere
-        parentElement = parent.qrcElement.nativeElement.querySelector("img").src
 
-        if (parentElement) {
-            // converts base 64 encoded image to blobData
-            let blobData = this.convertBase64ToBlob(parentElement)
-            // saves as image
-            const blob = new Blob([blobData], { type: "image/png" })
-            const url = window.URL.createObjectURL(blob)
-            const link = document.createElement("a")
-            link.href = url
-            // name of the file
-            link.download = "Qrcode"
-            link.click()
-        }
-    }
-    private convertBase64ToBlob(Base64Image: string) {
-        // split into two parts
-        const parts = Base64Image.split(";base64,")
-        // hold the content type
-        const imageType = parts[0].split(":")[1]
-        // decode base64 string
-        const decodedData = window.atob(parts[1])
-        // create unit8array of size same as row data length
-        const uInt8Array = new Uint8Array(decodedData.length)
-        // insert all character code into uint8array
-        for (let i = 0; i < decodedData.length; ++i) {
-            uInt8Array[i] = decodedData.charCodeAt(i)
-        }
-        // return blob image after conversion
-        return new Blob([uInt8Array], { type: imageType })
-    }
 
     getBase64(file) {
         var reader = new FileReader();
@@ -105,10 +70,9 @@ export class AddEntryComponent implements OnInit {
         };
     }
 
-
     submitDriver() {
         const val = this.addDriver.value;
-        console.log(this.addDriver)
+        // console.log(this.addDriver)
         // var inputs = document.querySelectorAll('input[type=file]');
         // inputs.forEach(async (input: any) => {
         //     //deal with each input
@@ -187,7 +151,8 @@ export class AddEntryComponent implements OnInit {
                     //     horizontalPosition: "center",
                     // });
                     this.qrText = res.toString();
-                    this.showQRCode = true;
+                    // this.showQRCode = true;
+                    this.getQrReady();
                 } else {
                     // this.snackBar.open("حدث خطأ، حاول مرة أخرى", "", {
                     //     duration: 2000,
@@ -200,4 +165,65 @@ export class AddEntryComponent implements OnInit {
             (err) => { console.log(err) }
         );
     }
+
+    getQrReady() {
+        const c: HTMLCanvasElement = this.canvas.nativeElement;
+        var ctx = c.getContext("2d");
+        var backgr = document.getElementById('Qr').getElementsByTagName('img')[1];
+        ctx.drawImage(backgr, 0, 0);
+        var qr = document.getElementsByClassName('qrcode')[0].getElementsByTagName('img')[0];
+        ctx.drawImage(qr, 55, 255);
+        ctx.font = "55px Cairo";
+        var date = new Date();
+        ctx.fillText(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`, 665, 320);
+        ctx.fillText(`${this.addCar.value.carPlateNumber}`, 685, 385);
+
+        this.downloadCanvas(c);
+    }
+    downloadCanvas(c: HTMLCanvasElement) {
+        var image = c.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
+        var link = document.createElement('a');
+        link.download = `QR_${this.qrText}.png`;
+        link.href = image;
+        link.click();
+    }
+    onChangeURL(url) {
+        this.qrCodeSrc = url;
+    }
+    // saveAsImage(parent: any) {
+    //     let parentElement = null
+    //     // fetches base 64 data from image
+    //     // parentElement contains the base64 encoded image src
+    //     // you might use to store somewhere
+    //     parentElement = parent.qrcElement.nativeElement.querySelector("img").src
+
+    //     if (parentElement) {
+    //         // converts base 64 encoded image to blobData
+    //         let blobData = this.convertBase64ToBlob(parentElement)
+    //         // saves as image
+    //         const blob = new Blob([blobData], { type: "image/png" })
+    //         const url = window.URL.createObjectURL(blob)
+    //         const link = document.createElement("a")
+    //         link.href = url
+    //         // name of the file
+    //         link.download = "Qrcode"
+    //         link.click()
+    //     }
+    // }
+    // private convertBase64ToBlob(Base64Image: string) {
+    //     // split into two parts
+    //     const parts = Base64Image.split(";base64,")
+    //     // hold the content type
+    //     const imageType = parts[0].split(":")[1]
+    //     // decode base64 string
+    //     const decodedData = window.atob(parts[1])
+    //     // create unit8array of size same as row data length
+    //     const uInt8Array = new Uint8Array(decodedData.length)
+    //     // insert all character code into uint8array
+    //     for (let i = 0; i < decodedData.length; ++i) {
+    //         uInt8Array[i] = decodedData.charCodeAt(i)
+    //     }
+    //     // return blob image after conversion
+    //     return new Blob([uInt8Array], { type: imageType })
+    // }
 }

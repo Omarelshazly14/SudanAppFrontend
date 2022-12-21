@@ -27,7 +27,8 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/web.config"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -57,7 +58,6 @@
               "src/assets/plugins/jquery-mapael/jquery.mapael.min.js",
               "src/assets/plugins/jquery-mapael/maps/usa_states.min.js",
               "src/assets/plugins/pace-progress/pace.min.js",
-              //"src/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js",
               "src/assets/js/demo.js",
               "node_modules/jquery/dist/jquery.js",
               "node_modules/datatables.net/js/jquery.dataTables.js"
