@@ -126,7 +126,9 @@ export class AddEntryComponent implements OnInit {
                 if (res > 0) {
                     this.showCarDetails = false;
                     this.carId = res;
-                    this.submitEntry();
+                    this.qrText = `${this.driverId}-${this.carId}-${this.addDriver.value.ownerCode}`
+                    this.showQRCode = true;
+                    // this.submitEntry();
                 } else if (res == 0) {
                     alert("الرجاء التأكد من صحة البيانات")
                 }
@@ -137,32 +139,32 @@ export class AddEntryComponent implements OnInit {
         }
     }
 
-    submitEntry() {
-        var newEntry = new Entry(this.driverId, this.carId, this.addDriver.value.ownerCode);
+    // submitEntry() {
+    //     var newEntry = new Entry(this.driverId, this.carId, this.addDriver.value.ownerCode);
 
-        this._entryService.addEntry(newEntry).subscribe(
-            res => {
-                if (res > 0) {
-                    // this.snackBar.open("تم إضافة الرحلة بنجاح", "", {
-                    //     duration: 2000,
-                    //     verticalPosition: "bottom",
-                    //     horizontalPosition: "center",
-                    // });
-                    this.qrText = res.toString();
-                    this.showQRCode = true;
-                    // this.getQrReady();
-                } else {
-                    // this.snackBar.open("حدث خطأ، حاول مرة أخرى", "", {
-                    //     duration: 2000,
-                    //     verticalPosition: "bottom",
-                    //     horizontalPosition: "center",
-                    // });
-                    console.log("Error")
-                }
-            },
-            (err) => { console.log(err) }
-        );
-    }
+    //     this._entryService.addEntry(newEntry).subscribe(
+    //         res => {
+    //             if (res > 0) {
+    //                 // this.snackBar.open("تم إضافة الرحلة بنجاح", "", {
+    //                 //     duration: 2000,
+    //                 //     verticalPosition: "bottom",
+    //                 //     horizontalPosition: "center",
+    //                 // });
+    //                 this.qrText = res.toString();
+    //                 this.showQRCode = true;
+    //                 // this.getQrReady();
+    //             } else {
+    //                 // this.snackBar.open("حدث خطأ، حاول مرة أخرى", "", {
+    //                 //     duration: 2000,
+    //                 //     verticalPosition: "bottom",
+    //                 //     horizontalPosition: "center",
+    //                 // });
+    //                 console.log("Error")
+    //             }
+    //         },
+    //         (err) => { console.log(err) }
+    //     );
+    // }
 
     getQrReady() {
         const c: HTMLCanvasElement = this.canvas.nativeElement;
