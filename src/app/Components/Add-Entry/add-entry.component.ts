@@ -138,8 +138,6 @@ export class AddEntryComponent implements OnInit {
     }
 
     submitEntry() {
-        // const val = this.addEntry.value;
-        // console.log(this.addEntry);
         var newEntry = new Entry(this.driverId, this.carId, this.addDriver.value.ownerCode);
 
         this._entryService.addEntry(newEntry).subscribe(
@@ -151,8 +149,8 @@ export class AddEntryComponent implements OnInit {
                     //     horizontalPosition: "center",
                     // });
                     this.qrText = res.toString();
-                    // this.showQRCode = true;
-                    this.getQrReady();
+                    this.showQRCode = true;
+                    // this.getQrReady();
                 } else {
                     // this.snackBar.open("حدث خطأ، حاول مرة أخرى", "", {
                     //     duration: 2000,
@@ -172,11 +170,11 @@ export class AddEntryComponent implements OnInit {
         var backgr = document.getElementById('Qr').getElementsByTagName('img')[1];
         ctx.drawImage(backgr, 0, 0);
         var qr = document.getElementsByClassName('qrcode')[0].getElementsByTagName('img')[0];
-        ctx.drawImage(qr, 55, 255);
-        ctx.font = "55px Cairo";
+        ctx.drawImage(qr, 45, 225);
+        ctx.font = "50px Cairo";
         var date = new Date();
-        ctx.fillText(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`, 665, 320);
-        ctx.fillText(`${this.addCar.value.carPlateNumber}`, 685, 385);
+        ctx.fillText(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`, 615, 290);
+        ctx.fillText(`${this.addCar.value.carPlateNumber}`, 620, 355);
 
         this.downloadCanvas(c);
     }
