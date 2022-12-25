@@ -32,7 +32,7 @@ export class AddEntryComponent implements OnInit {
             name: ['', [Validators.required, Validators.minLength(3)]],
             userName: ['', [Validators.required, Validators.minLength(3)]],
             email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required]],
+            password: ['', [Validators.required, Validators.minLength(6)]],
             licenseNo: ['', [Validators.required, Validators.minLength(3)]],
             licenseImg: ['', [Validators.required]],
             passportId: ['', [Validators.required, Validators.minLength(3)]],
@@ -124,13 +124,22 @@ export class AddEntryComponent implements OnInit {
             var newDriver = new Driver(val.name, val.userName, val.email, val.password, val.licenseNo, val.licenseImg, val.passportId, val.ownerCode)
 
             this._driverService.addDriver(newDriver).subscribe(res => {
-                if (res > 0) {
-                    console.log("Driver Added");
+                if (res.id > 0) {
                     this.showDriverDetails = false;
                     this.showCarDetails = true;
-                    this.driverId = res;
+                    this.driverId = res.id;
+                } else if (res.id == 0) {
+                    alert("برجاء المحاولة بإسم مستخدم آخر")
                 }
-            }, (err) => console.log(err))
+            }, (err) => {
+                if (err.error.id == -1) {
+                    alert("كود مالك السيارة خطأ، برجاء إدخال كود صحيح")
+                } else if (err.error.id == -2) {
+                    alert("اسم المستخدم او البريد الإلكتروني غير صالح او مستخدم من قبل، برجاء المحاولة باسم مستخدم أو إيميل آخر")
+                } else {
+                    alert("خطأ في إضافة السائق، برجاء التأكد من صحة البيانات")
+                }
+            })
         }
     }
     submitCar() {
@@ -151,12 +160,16 @@ export class AddEntryComponent implements OnInit {
             var newCar = new Car(val.carPlateNumber, val.imgCarNumber, val.licenseNumber, val.imglicenseNumber, this.addDriver.value.ownerCode, this.driverId);
             this._carService.addCar(newCar).subscribe(res => {
                 if (res > 0) {
-                    console.log("Car Added");
                     this.showCarDetails = false;
                     this.carId = res;
                     this.submitEntry();
+                } else if (res == 0) {
+                    alert("الرجاء التأكد من صحة البيانات")
                 }
-            }, (err) => console.log(err))
+            }, (err) => {
+                console.log(err)
+                alert("الرجاء التأكد من صحة البيانات")
+            })
         }
     }
 
@@ -173,7 +186,6 @@ export class AddEntryComponent implements OnInit {
                     //     verticalPosition: "bottom",
                     //     horizontalPosition: "center",
                     // });
-                    console.log("added successfully");
                     this.qrText = res.toString();
                     this.showQRCode = true;
                 } else {

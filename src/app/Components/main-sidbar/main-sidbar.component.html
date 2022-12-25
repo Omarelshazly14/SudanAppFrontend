@@ -39,21 +39,30 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
+            <!--<li class="nav-item">
               <a [routerLink]="['/emp/view']" class="nav-link" [routerLinkActive]="['active']">
                 <i class="nav-icon fab fa-black-tie"></i>
                 <p>
                   بيانات السائقين
-                  <!--<span class="right badge badge-danger">New</span>-->
+                  <span class="right badge badge-danger">New</span>
                 </p>
               </a>
-            </li>
-            <li class="nav-item">
+            </li>-->
+            <!--<li class="nav-item">
               <a [routerLink]="['/emp/0']" class="nav-link" [routerLinkActive]="['active']">
                 <i class="nav-icon fab fa-black-tie"></i>
                 <p>
                   اضافة سائق
 
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/emp/:id']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  تعديل بيانات السائقين
                   <!--<span class="right badge badge-danger">New</span>-->
                 </p>
               </a>
@@ -173,7 +182,7 @@
 
           </ul>
         </li>
-        <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview menu-open">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-edit"></i>
             <p class="text-warning">
@@ -195,15 +204,15 @@
         </li>
 
 
-        <li class="nav-item">
+        <!--<li class="nav-item">
           <a *ngIf="data.isUserAuthenticated" class="nav-link" [routerLink]="['claims']" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact: true}"> Claims </a>
         </li>
         <li class="nav-item">
           <a *ngIf="data.isUserAdmin" class="nav-link" href="#"> Privacy </a>
-        </li>
+        </li>-->
       </ul>
-      -->
+      
     </nav>
     <!-- /.sidebar-menu -->
   </div>
