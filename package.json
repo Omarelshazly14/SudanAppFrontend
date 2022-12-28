@@ -22,6 +22,7 @@
     "@angular/router": "~12.2.2",
     "@handsontable/angular": "^9.0.2",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
+    "admin-lte": "^3.2.0",
     "angular-datatables": "^12.0.0",
     "angular-maps": "^6.0.3",
     "angularx-qrcode": "^12.0.3",

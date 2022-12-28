@@ -36,6 +36,7 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/adminlte.js",
               "src/assets/plugins/jquery-ui/jquery-ui.min.js",
               "src/assets/js/resolveBsJui.js",
               "src/assets/plugins/bootstrap/js/bootstrap.bundle.min.js",
@@ -50,14 +51,12 @@
               "src/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js",
               "src/assets/plugins/summernote/summernote-bs4.min.js",
               "src/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
-              "src/assets/js/adminlte.js",
               "src/assets/plugins/chosen/chosen.jquery.min.js",
               "src/assets/plugins/jquery-mousewheel/jquery.mousewheel.js",
               "src/assets/plugins/raphael/raphael.min.js",
               "src/assets/plugins/jquery-mapael/jquery.mapael.min.js",
               "src/assets/plugins/jquery-mapael/maps/usa_states.min.js",
               "src/assets/plugins/pace-progress/pace.min.js",
-              //"src/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js",
               "src/assets/js/demo.js",
               "node_modules/jquery/dist/jquery.js",
               "node_modules/datatables.net/js/jquery.dataTables.js"
