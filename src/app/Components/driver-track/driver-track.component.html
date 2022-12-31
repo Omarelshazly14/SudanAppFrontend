@@ -14,7 +14,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive">
-            <app-bing-map *ngIf='mapReady'></app-bing-map>
+            <app-bing-map *ngIf='mapReady' (map)="getMap($event)"></app-bing-map>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
