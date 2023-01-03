@@ -42,6 +42,10 @@ import { MainComponent } from './components/KPI/main/main.component';
 import { AddEntryComponent } from './Components/Add-Entry/add-entry.component';
 import { DriverTrackComponent } from './components/driver-track/driver-track.component';
 import { UnderConstructionComponent } from './components/under-construction/under-construction.component';
+import { ProfileDriverComponent } from './components/Drivers/profile-driver/profile-driver.component';
+import { ViewDriversComponent } from './components/Drivers/view-drivers/view-drivers.component';
+import { AddDriverComponent } from './components/Drivers/add-driver/add-driver.component';
+import { EditDriverComponent } from './components/Drivers/edit-driver/edit-driver.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -57,6 +61,10 @@ const routes: Routes = [
           { path: 'emp/view', component: ViewEmployeesComponent },
           { path: 'emp/0', component: AddEmployeeComponent },
           { path: 'emp/:id', component: EditEmployeeComponent },
+          { path: 'driver/profile/:id', component: ProfileDriverComponent },
+          { path: 'driver/view', component: ViewDriversComponent },
+          { path: 'driver/0', component: AddDriverComponent },
+          { path: 'driver/:id', component: EditDriverComponent },
           { path: 'leaves/me', component: MyLeavesComponent },
           { path: 'leaves/request', component: RequestLeavesComponent },
           { path: 'leaves/review', component: ReviewLeavesComponent },

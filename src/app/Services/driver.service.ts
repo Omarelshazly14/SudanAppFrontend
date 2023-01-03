@@ -15,4 +15,10 @@ export class DriverService {
     addDriver(driver: Driver) {
         return this.http.post<any>(`${Constants.apiRoot}/api/Employee/RegisterDriver`, driver);
     }
+    getDrivers() {
+        return this.http.get<any>(`${Constants.apiRoot}/api/Driver/view`);
+    }
+    getDriver(id) {
+        return this.http.get<any>(`${Constants.apiRoot}/api/Driver/GetDriverById?driverid=${id}`);
+    }
 }

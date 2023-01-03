@@ -65,6 +65,10 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { BingMapComponent } from './components/bing-map/bing-map.component';
 import { DriverTrackComponent } from './components/driver-track/driver-track.component';
 import { UnderConstructionComponent } from './components/under-construction/under-construction.component';
+import { AddDriverComponent } from './components/Drivers/add-driver/add-driver.component';
+import { ViewDriversComponent } from './components/Drivers/view-drivers/view-drivers.component';
+import { EditDriverComponent } from './components/Drivers/edit-driver/edit-driver.component';
+import { ProfileDriverComponent } from './components/Drivers/profile-driver/profile-driver.component';
 
 
 const appInitializerFn = (appConfig: AppConfigServiceService) => {
@@ -125,7 +129,11 @@ const appInitializerFn = (appConfig: AppConfigServiceService) => {
     AddEntryComponent,
     BingMapComponent,
     DriverTrackComponent,
-    UnderConstructionComponent
+    UnderConstructionComponent,
+    AddDriverComponent,
+    ViewDriversComponent,
+    EditDriverComponent,
+    ProfileDriverComponent
   ],
   imports: [
     BrowserModule,
