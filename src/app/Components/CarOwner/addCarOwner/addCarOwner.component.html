@@ -1,0 +1,95 @@
+<div dir="rtl" class="text-right">
+    <!-- <h1 *ngIf="id">Edit Owner</h1>
+    <h1 *ngIf="!id">Create Owner</h1> -->
+    <form [formGroup]="ownerForm" (ngSubmit)="submitForm()" novalidate>
+        <div class="form-group">
+            <label>اسم المالك</label>
+            <input type="text" formControlName="name" class="form-control" maxlength="20"
+                [(ngModel)]="ownerForm.value.name">
+            <div *ngIf="ownerForm.controls.name.errors?.['required']" class="text-red">
+                ادخل اسم المالك
+            </div>
+            <div *ngIf="ownerForm.controls.name.errors?.['minlength']" class="text-red">
+                ادخل أكثر من 3 حروف
+            </div>
+        </div>
+        <div class="mb-3" *ngIf="!id">
+            <label for="userName" class="form-label">اسم المستخدم</label>
+            <input type="text" name="userName" formControlName="userName" class="form-control" id="userName"
+                placeholder="اسم المستخدم">
+            <div *ngIf="ownerForm.controls.userName.errors?.['required']" class="text-red">
+                ادخل اسم المستخدم
+            </div>
+            <div *ngIf="ownerForm.controls.userName.errors?.['minlength']" class="text-red">
+                ادخل اكثر من 3 حروف
+            </div>
+        </div>
+        <div class="mb-3" *ngIf="!id">
+            <label for="password" class="form-label">كلمة السر</label>
+            <input type="password" name="password" formControlName="password" class="form-control" id="password"
+                placeholder="ادخل كلمة السر">
+            <div *ngIf="ownerForm.controls.password.errors?.['required']" class="text-red">
+                ادخل كلمة السر
+            </div>
+            <div *ngIf="ownerForm.controls.password.errors?.['minlength']" class="text-red">
+                كلمة السر يجب ألا تقل عن 6 حروف
+            </div>
+        </div>
+        <div class="mb-3" *ngIf="!id">
+            <label for="email" class="form-label">البريد الإلكتروني </label>
+            <input type="email" name="email" formControlName="email" class="form-control" id="email"
+                placeholder="ادخل البريد الإلكتروني">
+            <div *ngIf="ownerForm.controls.email.errors?.['required']" class="text-red">
+                ادخل بريد إلكتروني
+            </div>
+            <div *ngIf="ownerForm.controls.email.errors?.['email']" class="text-red">
+                ادخل بريد إلكتروني صحيح
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Record Number</label>
+            <input type="text" formControlName="recordNo" class="form-control" maxlength="20"
+                [(ngModel)]="ownerForm.value.recordNo">
+            <div *ngIf="ownerForm.controls.recordNo.errors?.['required']" class="text-red">
+                مطلوب
+            </div>
+            <div *ngIf="ownerForm.controls.recordNo.errors?.['minlength']" class="text-red">
+                ادخل اكثر من 3 أرقام
+            </div>
+        </div>
+        <div class="form-group">
+            <label>رقم الباسبورد</label>
+            <input type="text" formControlName="passportNo" class="form-control" maxlength="20"
+                [(ngModel)]="ownerForm.value.passportNo" placeholder="ادخل رقم الباسبورد">
+            <div *ngIf="ownerForm.controls.passportNo.errors?.['required']" class="text-red">
+                مطلوب
+            </div>
+            <div *ngIf="ownerForm.controls.passportNo.errors?.['minlength']" class="text-red">
+                ادخل اكثر من 3 أرقام
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="visually-hidden" for="autoSizingSelect">نوع المالك</label>
+            <select class="form-select form-control" id="autoSizingSelect" formControlName="typeOwner"
+                [(ngModel)]="ownerForm?.value.typeOwner" value="{{ownerForm?.value.typeOwner}}">
+                <option value="1">مؤسسة</option>
+                <option value="2">شخص</option>
+            </select>
+            <div *ngIf="ownerForm.controls.typeOwner.errors?.['required']" class="text-red">
+                مطلوب
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" formControlName="phoneNo" class="form-control" maxlength="20"
+                [(ngModel)]="ownerForm.value.phoneNo">
+        </div>
+        <div class="form-group">
+            <label>Contact Number</label>
+            <input type="text" formControlName="contactNo" class="form-control" maxlength="20"
+                [(ngModel)]="ownerForm.value.contactNo">
+        </div> -->
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>
