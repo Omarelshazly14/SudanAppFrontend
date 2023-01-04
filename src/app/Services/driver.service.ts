@@ -18,4 +18,10 @@ export class DriverService {
     getDriversDropDown() {
         return this.http.get<any>(`${Constants.apiRoot}/api/Driver/GetAllDriversDropDown`)
     }
+    getDrivers() {
+        return this.http.get<any>(`${Constants.apiRoot}/api/Driver/view`);
+    }
+    getDriver(id) {
+        return this.http.get<any>(`${Constants.apiRoot}/api/Driver/GetDriverById?driverid=${id}`);
+    }
 }

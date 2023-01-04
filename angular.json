@@ -37,6 +37,7 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/adminlte.js",
               "src/assets/plugins/jquery-ui/jquery-ui.min.js",
               "src/assets/js/resolveBsJui.js",
               "src/assets/plugins/bootstrap/js/bootstrap.bundle.min.js",
@@ -51,7 +52,6 @@
               "src/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js",
               "src/assets/plugins/summernote/summernote-bs4.min.js",
               "src/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
-              "src/assets/js/adminlte.js",
               "src/assets/plugins/chosen/chosen.jquery.min.js",
               "src/assets/plugins/jquery-mousewheel/jquery.mousewheel.js",
               "src/assets/plugins/raphael/raphael.min.js",

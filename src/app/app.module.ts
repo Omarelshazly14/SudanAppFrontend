@@ -70,6 +70,10 @@ import { AddCarOwnerComponent } from './Components/CarOwner/addCarOwner/addCarOw
 import { CarComponent } from './Components/Car/car.component';
 import { AddCarComponent } from './Components/Car/addCar/addCar.component';
 import { SearchFilterPipe } from './Services/searchFilter.pipe';
+import { AddDriverComponent } from './components/Drivers/add-driver/add-driver.component';
+import { ViewDriversComponent } from './components/Drivers/view-drivers/view-drivers.component';
+import { EditDriverComponent } from './components/Drivers/edit-driver/edit-driver.component';
+import { ProfileDriverComponent } from './components/Drivers/profile-driver/profile-driver.component';
 
 
 const appInitializerFn = (appConfig: AppConfigServiceService) => {
@@ -135,7 +139,11 @@ const appInitializerFn = (appConfig: AppConfigServiceService) => {
     AddCarOwnerComponent,
     CarComponent,
     AddCarComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    AddDriverComponent,
+    ViewDriversComponent,
+    EditDriverComponent,
+    ProfileDriverComponent
   ],
   imports: [
     BrowserModule,
