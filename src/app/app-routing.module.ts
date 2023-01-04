@@ -42,6 +42,10 @@ import { MainComponent } from './components/KPI/main/main.component';
 import { AddEntryComponent } from './Components/Add-Entry/add-entry.component';
 import { DriverTrackComponent } from './components/driver-track/driver-track.component';
 import { UnderConstructionComponent } from './components/under-construction/under-construction.component';
+import { CarOwnerComponent } from './Components/CarOwner/carOwner.component';
+import { AddCarOwnerComponent } from './Components/CarOwner/addCarOwner/addCarOwner.component';
+import { CarComponent } from './Components/Car/car.component';
+import { AddCarComponent } from './Components/Car/addCar/addCar.component';
 import { ProfileDriverComponent } from './components/Drivers/profile-driver/profile-driver.component';
 import { ViewDriversComponent } from './components/Drivers/view-drivers/view-drivers.component';
 import { AddDriverComponent } from './components/Drivers/add-driver/add-driver.component';
@@ -125,6 +129,12 @@ const routes: Routes = [
           { path: 'addEntry', component: AddEntryComponent },
           { path: 'driversTracking', component: DriverTrackComponent },
           { path: 'underconstruction', component: UnderConstructionComponent },
+          { path: 'carOwner', component: CarOwnerComponent },
+          { path: 'carOwner/:id', component: AddCarOwnerComponent },
+          { path: 'carOwner/create', component: AddCarOwnerComponent },
+          { path: 'car', component: CarComponent },
+          { path: 'car/:id', component: AddCarComponent },
+          { path: 'car/create', component: AddCarComponent },
         ]
       },
     ]

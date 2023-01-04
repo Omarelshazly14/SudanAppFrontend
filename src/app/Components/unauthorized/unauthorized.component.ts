@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../Services/auth.service';
+import { MyAuthService } from '../../Services/myAuth.service';
 
 @Component({
   selector: 'app-unauthorized',
@@ -11,24 +13,18 @@ export class UnauthorizedComponent implements OnInit {
   public isUserAuthenticated: boolean = false;
 
   constructor(
-    private _authService: AuthService,
+    private _authService: MyAuthService,
+    private router: Router,
   ) {
-    this._authService.loginChanged
-      .subscribe(res => {
-        this.isUserAuthenticated = res;
-      })
   }
 
   ngOnInit(): void {
-    this._authService.isAuthenticated()
-      .then(isAuth => {
-        this.isUserAuthenticated = isAuth;
-      })
+    this.isUserAuthenticated = this._authService.isAuthenticated();
   }
   public login = () => {
-    this._authService.login();
+    this.router.navigateByUrl('/login')
   }
   public logout = () => {
-    this._authService.logout();
+    this.router.navigateByUrl('/login')
   }
 }

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from "@an
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Car } from "src/app/Data/Car";
 import { Driver } from "src/app/Data/Driver";
+import { CarOwner } from "src/app/Data/carOwner";
 import { Entry } from "src/app/Data/Entry";
 import { CarService } from "src/app/Services/car.service";
 import { DriverService } from "src/app/Services/driver.service";

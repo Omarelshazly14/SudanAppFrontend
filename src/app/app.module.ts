@@ -65,6 +65,11 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { BingMapComponent } from './components/bing-map/bing-map.component';
 import { DriverTrackComponent } from './components/driver-track/driver-track.component';
 import { UnderConstructionComponent } from './components/under-construction/under-construction.component';
+import { CarOwnerComponent } from './Components/CarOwner/carOwner.component';
+import { AddCarOwnerComponent } from './Components/CarOwner/addCarOwner/addCarOwner.component';
+import { CarComponent } from './Components/Car/car.component';
+import { AddCarComponent } from './Components/Car/addCar/addCar.component';
+import { SearchFilterPipe } from './Services/searchFilter.pipe';
 import { AddDriverComponent } from './components/Drivers/add-driver/add-driver.component';
 import { ViewDriversComponent } from './components/Drivers/view-drivers/view-drivers.component';
 import { EditDriverComponent } from './components/Drivers/edit-driver/edit-driver.component';
@@ -130,6 +135,11 @@ const appInitializerFn = (appConfig: AppConfigServiceService) => {
     BingMapComponent,
     DriverTrackComponent,
     UnderConstructionComponent,
+    CarOwnerComponent,
+    AddCarOwnerComponent,
+    CarComponent,
+    AddCarComponent,
+    SearchFilterPipe,
     AddDriverComponent,
     ViewDriversComponent,
     EditDriverComponent,
