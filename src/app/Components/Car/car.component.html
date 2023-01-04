@@ -1,0 +1,47 @@
+<div dir="rtl" class="text-right">
+    <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-success" [routerLink]="['/car/create']">إضافة سيارة جديدة</button>
+        <input type="text" class="form-control col-3" placeholder="ابحث عن سيارة" [(ngModel)]="searchText" />
+    </div>
+    <table class="table">
+        <thead>
+            <tr class="row header">
+                <th class="cell">Car Plate Number</th>
+                <th class="cell">Car License Number</th>
+                <th class="cell"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let car of cars | searchFilter: searchText" class="row">
+                <td class="cell">{{car.carPlateNumber || ""}}</td>
+                <td class="cell">{{car.licenceNumber || ""}}</td>
+                <td class="cell">
+                    <button type="button" class="btn btn-primary" [routerLink]="['/car/', car.id]">تعديل</button>
+                    <button type="button" class="btn btn-danger" (click)="open(deleteModal, car.id)">حذف</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-dark" (click)="loadPrevious()" [disabled]="!hasPreviousPage">الصفحة السابقة</button>
+        <button class="btn btn-dark" (click)="loadNext()" [disabled]="!hasNextPage">الصفحة التالية</button>
+    </div>
+
+    <ng-template #deleteModal let-modal class="modal-dialog modal-dialog-centered">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+            <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button> -->
+        </div>
+        <div class="modal-body">
+            Are you Sure to Delete?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-dark" aria-label="Close" (click)="modal.dismiss('Cancel')">
+                <span aria-hidden="true">Cancel</span>
+            </button>
+            <button type="button" class="btn btn-danger" (click)="modal.close('Delete')">Delete</button>
+        </div>
+    </ng-template>
+</div>

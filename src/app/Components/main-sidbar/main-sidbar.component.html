@@ -64,6 +64,60 @@
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-edit"></i>
             <p class="text-warning">
+              ملاك السيارات
+              <i class="fas fa-angle-right right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['/carOwner']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  عرض ملاك السيارات
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/carOwner/create']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  إضاف مالك سيارة
+                </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p class="text-warning">
+              السيارات
+              <i class="fas fa-angle-right right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['/car']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  عرض السيارات
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/car/create']" class="nav-link" [routerLinkActive]="['active']">
+                <i class="nav-icon fab fa-black-tie"></i>
+                <p>
+                  إضاف سيارة
+                </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p class="text-warning">
               مراقبة السائقين
               <i class="fas fa-angle-right right"></i>
             </p>
