@@ -52,6 +52,9 @@ export class CarService {
                 catchError(this.errorHandler)
             )
     }
+    getCarsDropDown() {
+        return this.httpClient.get<any>(`${Constants.apiRoot}/api/Car/GetAllCarsDropDown`)
+    }
     errorHandler(error) {
         let errorMessage = '';
         if (error.error instanceof ErrorEvent) {

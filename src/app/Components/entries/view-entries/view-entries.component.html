@@ -1,0 +1,47 @@
+<div class="text-right" dir="rtl">
+
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <table id="tblItems" class="table table-striped" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+            class="table table-bordered table-hover table-valign-middle">
+            <thead>
+                <tr>
+                    <th>اسم السائق</th>
+                    <th>رقم لوحة السيارة</th>
+                    <th>اسم مالك السيارة</th>
+                    <th>كود المالك</th>
+                    <th>تاريخ الدخول</th>
+                    <th>تاريخ الخروج</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let entry of entries">
+                    <td (click)="goToDriverDetails(entry.driverId)" style="cursor:pointer;">{{entry.driverName}}</td>
+                    <td>{{entry.carPlateNumber}}</td>
+                    <td>{{entry.ownerName}}</td>
+                    <td>{{entry.ownerCode}}</td>
+                    <td>{{entry.checkInDate | date:"dd/MM/yyyy HH:mm"}}</td>
+                    <td>{{entry.checkOutDate | date:"dd/MM/yyyy HH:mm"}}</td>
+                    <td>
+                        <a href="javascript:void(0)" (click)="openEdit(entry.id)"
+                            class="btn btn-primary btn-sm view {{entry.id}}">
+                            <i class="fa fa-edit"></i>
+                            Edit
+                        </a>
+                        &nbsp;
+                        <a href="javascript:void(0)" (click)="viewProfile(entry.id)"
+                            class="btn btn-success btn-sm edit {{entry.id}}">
+                            <i class="fa fa-eye"></i>
+                            View
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- <div class="card-footer">
+        <div class="card-tools">
+        </div>
+    </div> -->
+</div>

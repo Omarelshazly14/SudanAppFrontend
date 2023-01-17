@@ -50,6 +50,7 @@ import { ProfileDriverComponent } from './components/Drivers/profile-driver/prof
 import { ViewDriversComponent } from './components/Drivers/view-drivers/view-drivers.component';
 import { AddDriverComponent } from './components/Drivers/add-driver/add-driver.component';
 import { EditDriverComponent } from './components/Drivers/edit-driver/edit-driver.component';
+import { ViewEntriesComponent } from './Components/entries/view-entries/view-entries.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -126,6 +127,7 @@ const routes: Routes = [
           { path: 'attendance/confirm', component: DashBoardComponent },
           { path: 'claims', component: ClaimsComponent, canActivate: [AuthGuardService] },
           { path: 'unauthorized', component: UnauthorizedComponent },
+          { path: 'entries', component: ViewEntriesComponent },
           { path: 'addEntry', component: AddEntryComponent },
           { path: 'driversTracking', component: DriverTrackComponent },
           { path: 'underconstruction', component: UnderConstructionComponent },

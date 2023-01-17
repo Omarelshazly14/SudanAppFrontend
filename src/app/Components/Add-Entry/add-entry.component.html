@@ -1,5 +1,76 @@
-<div class="container">
-    <form [formGroup]="addDriver" *ngIf="showDriverDetails">
+<div class="container text-right" dir="rtl">
+    <form [formGroup]="addEntry" *ngIf="!showQRCode">
+        <div class="form-group" *ngIf="drivers">
+            <label class="visually-hidden" for="driverSelect">سائق السيارة</label>
+            <div class="d-flex">
+                <select class="form-select form-control col-4" id="driverSelect" name="driverId"
+                    formControlName="driverId" [(ngModel)]="addEntry.value.driverId">
+                    <option *ngFor="let driver of drivers | searchFilter:driverSearchText" value="{{driver.id}}">
+                        {{driver.name}}
+                    </option>
+                </select>
+                <input type="text" [(ngModel)]="driverSearchText" placeholder="ابحث عن سائق"
+                    [ngModelOptions]="{standalone: true}" class="form-control col-3 mx-5">
+                <div *ngIf="addEntry.controls.driverId.errors?.['required']" class="text-red">
+                    اختر اسم السائق
+                </div>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="cars">
+            <label class="visually-hidden" for="carSelect">السيارة</label>
+            <div class="d-flex">
+                <select class="form-select form-control col-4" id="carSelect" name="carId" formControlName="carId"
+                    [(ngModel)]="addEntry.value.carId">
+                    <option *ngFor="let car of cars | searchFilter:carSearchText" value="{{car.id}}">
+                        {{car.carPlateNumber}}
+                    </option>
+                </select>
+                <input type="text" [(ngModel)]="carSearchText" placeholder="ابحث عن سيارة"
+                    [ngModelOptions]="{standalone: true}" class="form-control col-3 mx-5">
+                <div *ngIf="addEntry.controls.carId.errors?.['required']" class="text-red">
+                    اختر رقم لوحة السيارة
+                </div>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="ownerCodes">
+            <label class="visually-hidden" for="carSelect">كود مالك السيارة</label>
+            <div class="d-flex">
+                <select class="form-select form-control col-4" id="ownerSelect" name="ownerCarCode"
+                    formControlName="ownerCarCode" [(ngModel)]="addEntry.value.ownerCarCode">
+                    <option *ngFor="let code of ownerCodes | searchFilter:ownerSearchText" value="{{code}}">
+                        {{code}}
+                    </option>
+                </select>
+                <input type="text" [(ngModel)]="ownerSearchText" placeholder="ابحث عن كود مالك سيارة"
+                    [ngModelOptions]="{standalone: true}" class="form-control col-3 mx-5">
+                <div *ngIf="addEntry.controls.ownerCarCode.errors?.['required']" class="text-red">
+                    اختر كود مالك السيارة
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <button (click)="submit()" class="btn btn-primary btn-block">إصدار QR كود</button>
+        </div>
+    </form>
+
+    <div *ngIf="showQRCode">
+        <button class="btn btn-primary" (click)="getQrReady()">
+            تحميل الكارت
+        </button>
+    </div>
+    <div id="Qr">
+        <qrcode #qrCode [elementType]="'img'" [errorCorrectionLevel]="'M'" [qrdata]="qrText" [scale]="1" [width]="375"
+            [allowEmptyString]="true" [colorDark]="'#000000ff'" [colorLight]="'#ffffffff'"
+            (qrCodeURL)="onChangeURL($event)" [margin]="4" hidden>
+        </qrcode>
+        <img id="entryCard" src="assets/img/EntryCard.jpg" alt="background" width="1080" height="719" hidden />
+        <canvas #myCanvas width="1080" height="719" style="border:1px solid #d3d3d3;" hidden></canvas>
+    </div>
+</div>
+
+
+
+<!-- <form [formGroup]="addDriver" *ngIf="showDriverDetails">
         <div class="mb-3">
             <label for="name" class="form-label">اسم السائق</label>
             <input type="text" name="name" formControlName="name" class="form-control" id="name"
@@ -78,8 +149,8 @@
         <div class="col-3">
             <button (click)="submitDriver()" class="btn btn-primary btn-block">إضافة سائق</button>
         </div>
-    </form>
-    <form [formGroup]="addCar" *ngIf="showCarDetails">
+    </form> -->
+<!-- <form [formGroup]="addCar" *ngIf="showCarDetails">
         <div class="mb-3">
             <label for="carPlateNumber" class="form-label">رقم لوحة السيارة</label>
             <input type="text" name="carPlateNumber" formControlName="carPlateNumber" class="form-control"
@@ -115,18 +186,4 @@
         <div class="col-3">
             <button (click)="submitCar()" class="btn btn-primary btn-block">تسجيل رحلة جديدة</button>
         </div>
-    </form>
-    <div *ngIf="showQRCode">
-        <button class="btn btn-primary" (click)="getQrReady()">
-            تحميل الكارت
-        </button>
-    </div>
-    <div id="Qr">
-        <qrcode #qrCode [elementType]="'img'" [errorCorrectionLevel]="'M'" [qrdata]="qrText" [scale]="1" [width]="375"
-            [allowEmptyString]="true" [colorDark]="'#000000ff'" [colorLight]="'#ffffffff'"
-            (qrCodeURL)="onChangeURL($event)" [margin]="4" hidden>
-        </qrcode>
-        <img id="entryCard" src="assets/img/EntryCard.jpg" alt="background" width="1080" height="719" hidden />
-        <canvas #myCanvas width="1080" height="719" style="border:1px solid #d3d3d3;" hidden></canvas>
-    </div>
-</div>
+    </form> -->

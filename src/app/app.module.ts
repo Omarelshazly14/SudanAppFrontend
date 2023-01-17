@@ -74,6 +74,7 @@ import { AddDriverComponent } from './components/Drivers/add-driver/add-driver.c
 import { ViewDriversComponent } from './components/Drivers/view-drivers/view-drivers.component';
 import { EditDriverComponent } from './components/Drivers/edit-driver/edit-driver.component';
 import { ProfileDriverComponent } from './components/Drivers/profile-driver/profile-driver.component';
+import { ViewEntriesComponent } from './Components/entries/view-entries/view-entries.component';
 
 
 const appInitializerFn = (appConfig: AppConfigServiceService) => {
@@ -143,7 +144,8 @@ const appInitializerFn = (appConfig: AppConfigServiceService) => {
     AddDriverComponent,
     ViewDriversComponent,
     EditDriverComponent,
-    ProfileDriverComponent
+    ProfileDriverComponent,
+    ViewEntriesComponent
   ],
   imports: [
     BrowserModule,

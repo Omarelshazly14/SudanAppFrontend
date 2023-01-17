@@ -47,6 +47,12 @@ export class CarOwnerService {
                 catchError(this.errorHandler)
             )
     }
+    getAllOwnerCodes() {
+        return this.httpClient.get<any>(this.apiServer + '/api/CarOwner/GetAllCarOwnerCodes')
+            .pipe(
+                catchError(this.errorHandler)
+            )
+    }
     errorHandler(error) {
         let errorMessage = '';
         if (error.error instanceof ErrorEvent) {

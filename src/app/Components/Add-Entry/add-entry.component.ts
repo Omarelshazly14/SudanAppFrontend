@@ -8,6 +8,7 @@ import { CarService } from "src/app/Services/car.service";
 import { DriverService } from "src/app/Services/driver.service";
 import { EntryService } from "src/app/Services/entry-service";
 import { MngDataService } from "src/app/Services/mng-data.service";
+import { CarOwnerService } from "src/app/Services/carOwner.service";
 
 @Component({
     selector: 'add-entry',
@@ -18,6 +19,12 @@ import { MngDataService } from "src/app/Services/mng-data.service";
 export class AddEntryComponent implements OnInit {
     addDriver: FormGroup;
     showDriverDetails: boolean = true;
+    drivers: any[];
+    cars: any[];
+    ownerCodes: any[];
+    driverSearchText: string = '';
+    carSearchText: string = '';
+    ownerSearchText: string = '';
     driverId: number;
     addCar: FormGroup;
     showCarDetails: boolean = false;
@@ -31,45 +38,67 @@ export class AddEntryComponent implements OnInit {
     @ViewChild('myCanvas') public canvas: ElementRef;
     @ViewChild('qrCode') public qrCode: ElementRef;
 
-    constructor(private fb: FormBuilder, private _entryService: EntryService, private data: MngDataService, private _driverService: DriverService, private _carService: CarService) {
-        this.addDriver = this.fb.group({
-            name: ['', [Validators.required, Validators.minLength(3)]],
-            userName: ['', [Validators.required, Validators.minLength(3)]],
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(6)]],
-            licenseNo: ['', [Validators.required, Validators.minLength(3)]],
-            licenseImg: ['', [Validators.required]],
-            passportId: ['', [Validators.required, Validators.minLength(3)]],
-            ownerCode: ['', [Validators.required]]
-        });
-        this.addCar = this.fb.group({
-            carPlateNumber: ['', [Validators.required, Validators.minLength(3)]],
-            imgCarNumber: ['', [Validators.required, Validators.minLength(3)]],
-            licenseNumber: ['', [Validators.required, Validators.minLength(3)]],
-            imglicenseNumber: ['', [Validators.required, Validators.minLength(3)]],
-        })
-        // this.addEntry = this.fb.group({
-        //     driverId: ['', [Validators.required, Validators.min(0)]],
-        //     carId: ['', [Validators.required, Validators.min(0)]],
-        //     ownerCarCode: ['', Validators.required]
+    constructor(private fb: FormBuilder,
+        private _entryService: EntryService,
+        private data: MngDataService,
+        private _driverService: DriverService,
+        private _carService: CarService,
+        private _ownerService: CarOwnerService
+    ) {
+        // this.addDriver = this.fb.group({
+        //     name: ['', [Validators.required, Validators.minLength(3)]],
+        //     userName: ['', [Validators.required, Validators.minLength(3)]],
+        //     email: ['', [Validators.required, Validators.email]],
+        //     password: ['', [Validators.required, Validators.minLength(6)]],
+        //     licenseNo: ['', [Validators.required, Validators.minLength(3)]],
+        //     licenseImg: ['', [Validators.required]],
+        //     passportId: ['', [Validators.required, Validators.minLength(3)]],
+        //     ownerCode: ['', [Validators.required]]
+        // });
+        // this.addCar = this.fb.group({
+        //     carPlateNumber: ['', [Validators.required, Validators.minLength(3)]],
+        //     imgCarNumber: ['', [Validators.required, Validators.minLength(3)]],
+        //     licenseNumber: ['', [Validators.required, Validators.minLength(3)]],
+        //     imglicenseNumber: ['', [Validators.required, Validators.minLength(3)]],
         // })
+        this.addEntry = this.fb.group({
+            driverId: ['', [Validators.required]],
+            carId: ['', [Validators.required]],
+            ownerCarCode: ['', Validators.required]
+        })
     }
 
     ngOnInit(): void {
         this.data.setTitle(`${this.title}`);
+        this.getDriversList();
+        this.getCarsList();
+        this.getOwnerCodesList();
     }
-
-
-    getBase64(file) {
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            this.readerResult = reader.result;
-        };
-        reader.onerror = function (error) {
-            console.log('Error: ', error);
-        };
+    getDriversList() {
+        this._driverService.getDriversDropDown().subscribe(res => {
+            this.drivers = res;
+        })
     }
+    getCarsList() {
+        this._carService.getCarsDropDown().subscribe(res => {
+            this.cars = res;
+        })
+    }
+    getOwnerCodesList() {
+        this._ownerService.getAllOwnerCodes().subscribe(res => {
+            this.ownerCodes = res;
+        })
+    }
+    // getBase64(file) {
+    //     var reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => {
+    //         this.readerResult = reader.result;
+    //     };
+    //     reader.onerror = function (error) {
+    //         console.log('Error: ', error);
+    //     };
+    // }
 
     submitDriver() {
         const val = this.addDriver.value;
@@ -127,7 +156,7 @@ export class AddEntryComponent implements OnInit {
                 if (res > 0) {
                     this.showCarDetails = false;
                     this.carId = res;
-                    this.qrText = `${this.driverId}-${this.carId}-${this.addDriver.value.ownerCode}`
+                    this.qrText = `${this.driverId}-${this.carId}-${this.addDriver.value.ownerCode}`;
                     this.showQRCode = true;
                     // this.submitEntry();
                 } else if (res == 0) {
@@ -166,7 +195,12 @@ export class AddEntryComponent implements OnInit {
     //         (err) => { console.log(err) }
     //     );
     // }
-
+    submit() {
+        if (this.addEntry.status == "VALID") {
+            this.qrText = `${this.addEntry.value.driverId}-${this.addEntry.value.carId}-${this.addEntry.value.ownerCarCode}`;
+            this.showQRCode = true;
+        }
+    }
     getQrReady() {
         const c: HTMLCanvasElement = this.canvas.nativeElement;
         var ctx = c.getContext("2d");
@@ -177,9 +211,11 @@ export class AddEntryComponent implements OnInit {
         ctx.font = "50px Cairo";
         var date = new Date();
         ctx.fillText(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`, 615, 290);
-        ctx.fillText(`${this.addCar.value.carPlateNumber}`, 620, 355);
+        var selectedCar = this.cars.find(car => car.id == this.addEntry.value.carId)
+        ctx.fillText(`${selectedCar.carPlateNumber}`, 620, 355);
 
         this.downloadCanvas(c);
+        window.location.href = 'entries';
     }
     downloadCanvas(c: HTMLCanvasElement) {
         var image = c.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");

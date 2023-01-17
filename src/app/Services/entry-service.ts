@@ -15,4 +15,7 @@ export class EntryService {
     addEntry(entry: Entry) {
         return this.http.post<any>(`${Constants.apiRoot}/api/Entry/AddEntry`, entry);
     }
+    getAllEntries() {
+        return this.http.get<any>(`${Constants.apiRoot}/api/Entry/GetEntries`);
+    }
 }
